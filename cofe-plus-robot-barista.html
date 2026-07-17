@@ -143,6 +143,13 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
 .stat .big.ink{color:var(--paper);}
 .stat .h{font-size:23px;font-weight:600;margin-top:14px;color:var(--paper);}
 .stat .p{font-size:19px;color:var(--muted);margin-top:8px;line-height:1.42;}
+/* small tiffany index label atop the opportunity cards (the four costs) */
+.cidx{font-family:var(--font-body);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--tiffany);font-weight:600;margin-bottom:14px;}
+/* key-feature list (slide 03) */
+.feat-list{margin-top:26px;width:760px;}
+.feat-line{font-size:21px;color:#d7d0c4;padding:11px 0;border-bottom:1px solid var(--faint);}
+.feat-line:first-child{border-top:1px solid var(--faint);}
+.feat-line b{color:var(--tiffany);font-weight:700;}
 
 /* labeled feature cards */
 .feat{padding:30px 32px;display:flex;flex-direction:column;gap:12px;}
@@ -236,7 +243,7 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
     <div class="plate t-plate reveal d2">
       <div class="kick">7th Generation Robot Barista</div>
       <h1>The Robot<span class="out">Barista</span></h1>
-      <div class="sub">Specialty-grade coffee, brewed entirely by a machine — 54 seconds a cup, zero human hands, running 24/7.</div>
+      <div class="sub">Specialty-grade coffee, brewed entirely by a robot — ~50 seconds a cup, 0 human error, running 24/7/365.</div>
     </div>
 
     <div class="t-photo reveal d3">
@@ -245,7 +252,7 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
     </div>
 
     <div class="t-stats reveal d4">
-      <div><div class="n">54s</div><div class="t">Avg / cup</div></div>
+      <div><div class="n">50s</div><div class="t">Avg / cup</div></div>
       <div><div class="n">1,000</div><div class="t">Cups / day</div></div>
       <div><div class="n">2.35㎡</div><div class="t">Footprint</div></div>
       <div><div class="n">70+</div><div class="t">Countries</div></div>
@@ -262,13 +269,13 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
       <div class="body">
         <div class="eyebrow reveal d1">The Opportunity</div>
         <h2 class="title reveal d1">Coffee is booming.<br>The café model isn't.</h2>
-        <p class="lead reveal d2">Demand for quality coffee keeps climbing — but the traditional café that serves it is expensive, inconsistent, and hard to scale. Four structural costs cap every location.</p>
+        <p class="lead reveal d2">Demand for quality coffee keeps climbing — but the traditional café that serves it is expensive, inconsistent, and hard to scale. Four structural costs cap every location: labour &amp; rent, limited hours, inconsistent quality, and slow expansion.</p>
 
         <div class="stat-grid reveal d3" style="grid-template-columns:repeat(4,1fr);position:absolute;left:0;right:0;bottom:0;">
-          <div class="card stat"><div class="big ink">70%+</div><div class="h">Cost is people &amp; rent</div><div class="p">Wages, rent and fit-out dominate café P&amp;L, squeezing margins on every cup.</div></div>
-          <div class="card stat"><div class="big ink">~8–10h</div><div class="h">Limited hours</div><div class="p">Staffed hours cap revenue. Peak queues turn customers away; off-hours sit idle.</div></div>
-          <div class="card stat"><div class="big ink">Varies</div><div class="h">Inconsistent cups</div><div class="p">Taste swings with the barista, the shift, and the day. Quality is hard to standardize.</div></div>
-          <div class="card stat"><div class="big ink">Slow</div><div class="h">Hard to scale</div><div class="p">Every new site means hiring, training and build-out — capital and time intensive.</div></div>
+          <div class="card stat"><div class="cidx">01 · Labour &amp; rent</div><div class="big ink">70%+</div><div class="h">Cost is people &amp; rent</div><div class="p">Wages, rent and fit-out dominate café P&amp;L, squeezing margins on every cup.</div></div>
+          <div class="card stat"><div class="cidx">02 · Limited hours</div><div class="big ink">~8–10h</div><div class="h">Staffed-hours ceiling</div><div class="p">Staffed hours cap revenue. Peak queues turn customers away; off-hours sit idle.</div></div>
+          <div class="card stat"><div class="cidx">03 · Inconsistent quality</div><div class="big ink" aria-hidden="true" style="opacity:0;">·</div><div class="h">Inconsistent cups</div><div class="p">Taste swings with the barista, the shift, and the day. Quality is hard to standardize.</div></div>
+          <div class="card stat"><div class="cidx">04 · Slow expansion</div><div class="big ink">Slow</div><div class="h">Hard to scale</div><div class="p">Every new site means hiring, training and build-out — capital and time intensive.</div></div>
         </div>
       </div>
     </div>
@@ -283,14 +290,19 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
       <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>The Product</span><span class="pg">03</span></span></div>
       <div class="body">
         <div style="position:absolute;left:0;top:0;width:940px;">
-          <div class="eyebrow reveal d1">Meet COFE+</div>
-          <h2 class="title reveal d1" style="font-size:74px;">A full café that<br>runs itself.</h2>
-          <p class="lead reveal d2" style="font-size:25px;">COFE+ is a fully autonomous robotic café. A multi-axis robotic arm grinds fresh beans, pulls espresso, steams milk, finishes latte art and serves — with no barista on site. One compact unit replaces an entire coffee bar.</p>
-          <div class="chips reveal d3" style="margin-top:34px;">
+          <div class="eyebrow reveal d1">Meet COFE+ 7th Gen Robot Barista</div>
+          <h2 class="title reveal d1" style="font-size:70px;">A full robot café<br>that runs itself.</h2>
+          <p class="lead reveal d2" style="font-size:24px;">COFE+ is a fully autonomous robotic café. A 6-axis robotic arm takes freshly-ground espresso and milk, adds fresh ice, finishes latte art and serves — with no human barista on site. One compact unit replaces an entire coffee shop.</p>
+          <div class="chips reveal d3" style="margin-top:28px;">
             <span class="chip"><b>Autonomous</b> · no staff on site</span>
             <span class="chip"><b>24/7</b> · always open</span>
             <span class="chip"><b>2.35㎡</b> · fits anywhere</span>
             <span class="chip"><b>Cashless</b> · app &amp; screen ordering</span>
+          </div>
+          <div class="feat-list reveal d4">
+            <div class="feat-line"><b>8 categories</b> — Coffee, Matcha, Chocolate, Milk Tea &amp; more</div>
+            <div class="feat-line"><b>300+ drinks</b> available</div>
+            <div class="feat-line"><b>5,000+ customizations</b> — your drink, your choice</div>
           </div>
         </div>
 
@@ -345,8 +357,9 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
         <div class="eyebrow reveal d1">Man vs. Machine · Shanghai Hongqiao</div>
         <h2 class="title reveal d1">It beat elite baristas.</h2>
         <p class="lead reveal d2">In a live showdown at Shanghai's Coffee Culture Festival, the 7th-gen COFE+ went head-to-head with a TOC-grade competition judge on three cups.</p>
+        <p class="reveal d2" style="margin-top:12px;font-size:18px;"><a href="https://finance.yahoo.com/technology/ai/articles/man-vs-machine-7th-gen-133000657.html" target="_blank" rel="noopener" style="color:var(--tiffany);text-decoration:none;border-bottom:1px solid rgba(10,186,181,.45);padding-bottom:2px;">Read the official report — Yahoo&nbsp;Finance ↗</a></p>
 
-        <div class="vs reveal d3" style="position:absolute;left:0;right:0;top:250px;">
+        <div class="vs reveal d3" style="position:absolute;left:0;right:0;top:302px;">
           <div class="card side">
             <div class="who">Elite human barista</div>
             <div class="time" style="color:var(--paper);">3:35</div>
