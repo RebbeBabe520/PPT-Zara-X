@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COFE+ 7th Generation Robot Barista — Product Introduction</title>
+
+<!-- Fonts: Archivo Black (display) + Space Grotesk (body/labels), Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================
+   THEME TOKENS — change these to restyle the deck
+   Style: "Bold Signal" adapted to a Tiffany-blue accent
+   =========================================== */
+:root{
+  --stage-bg:#0c0b09;                 /* letterbox area behind stage */
+  --slide-bg:#141210;                 /* base slide fill */
+  --paper:#F4F1EA;                    /* primary light text */
+  --muted:#948c7f;                    /* secondary text */
+  --faint:rgba(244,241,234,.14);      /* hairlines */
+  --card:#1c1a16;                     /* dark card on charcoal */
+  --card-2:#211e19;                   /* raised dark card */
+  --ink:#0c1615;                      /* dark text on tiffany */
+  --tiffany:#0ABAB5;                  /* signature accent */
+  --tiffany-lt:#63D9D0;
+  --tiffany-dk:#0a8f8a;
+
+  --font-display:'Archivo Black',sans-serif;
+  --font-body:'Space Grotesk',sans-serif;
+
+  --ease:cubic-bezier(.16,1,.3,1);
+  --pad:84px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* ===========================================
+   FIXED 16:9 STAGE — mandatory base (viewport-base.css)
+   =========================================== */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg);}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg);}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg);}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+img,video,canvas,svg{max-width:100%;max-height:100%;}
+.deck-controls{position:fixed;left:auto;right:26px;bottom:18px;transform:none;z-index:1000;}
+@media print{
+  html,body{width:1920px;height:auto;overflow:visible;background:#fff;}
+  .deck-viewport{position:static;overflow:visible;background:#fff;}
+  .deck-stage{position:static;width:auto;height:auto;transform:none!important;background:none;}
+  .slide{position:relative;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;width:1920px;height:1080px;break-after:page;page-break-after:always;}
+  .slide:last-child{break-after:auto;page-break-after:auto;}
+  .deck-controls{display:none!important;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important;}}
+
+/* ===========================================
+   SHARED CHROME + TYPOGRAPHY
+   =========================================== */
+.slide{font-family:var(--font-body);color:var(--paper);
+  background:
+    radial-gradient(1200px 700px at 82% -12%, #2a2622 0%, rgba(42,38,34,0) 58%),
+    linear-gradient(150deg,#1a1713 0%,#141210 52%,#100e0b 100%);}
+/* faint dotted texture across every slide */
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.028) 1px,transparent 1px);background-size:30px 30px;}
+
+.mono{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.22em;}
+
+.wrap{position:absolute;inset:0;padding:52px var(--pad) 64px;z-index:2;}
+
+/* top bar shared across slides */
+.topbar{display:flex;justify-content:space-between;align-items:center;
+  font-size:21px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);}
+.topbar b{color:var(--tiffany);}
+.topbar .rt{display:flex;align-items:center;gap:18px;}
+.topbar .rt .pg{color:var(--paper);}
+
+/* decorative giant section number */
+.snum{position:absolute;right:70px;bottom:34px;font-family:var(--font-display);
+  font-size:340px;line-height:.7;color:transparent;-webkit-text-stroke:2px rgba(244,241,234,.06);z-index:1;pointer-events:none;}
+
+.eyebrow{display:inline-flex;align-items:center;gap:13px;font-size:20px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--tiffany);font-weight:600;}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--tiffany);}
+
+h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.94;letter-spacing:-.01em;
+  font-size:82px;margin-top:20px;}
+.lead{font-size:27px;line-height:1.5;color:#cfc8bb;max-width:1000px;font-weight:400;margin-top:22px;}
+
+/* tiffany plate + dark cards */
+.plate{background:linear-gradient(150deg,var(--tiffany-lt),var(--tiffany) 60%,var(--tiffany-dk));color:var(--ink);border-radius:8px;}
+.card{background:var(--card);border:1px solid var(--faint);border-radius:10px;}
+.card.raise{background:var(--card-2);}
+
+/* generic reveal animation, replays when a slide becomes .visible */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .62s var(--ease),transform .62s var(--ease);}
+.slide.visible .reveal{opacity:1;transform:none;}
+.d1{transition-delay:.06s}.d2{transition-delay:.14s}.d3{transition-delay:.22s}.d4{transition-delay:.30s}
+.d5{transition-delay:.38s}.d6{transition-delay:.46s}.d7{transition-delay:.54s}.d8{transition-delay:.62s}
+.d9{transition-delay:.70s}.d10{transition-delay:.78s}
+
+/* ============ TITLE SLIDE (01) ============ */
+.t-top{position:absolute;top:52px;left:var(--pad);right:var(--pad);}
+.t-plate{position:absolute;left:var(--pad);top:214px;width:1120px;padding:64px 70px 58px;
+  box-shadow:0 44px 100px rgba(0,0,0,.5);}
+.t-plate .kick{font-size:25px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.72;margin-bottom:20px;}
+.t-plate h1{font-family:var(--font-display);text-transform:uppercase;font-size:138px;line-height:.88;letter-spacing:-.02em;}
+.t-plate h1 .out{color:transparent;-webkit-text-stroke:3px var(--ink);display:block;}
+.t-plate .sub{margin-top:28px;font-size:28px;font-weight:500;color:#0b201e;max-width:900px;line-height:1.42;}
+.t-gen{position:absolute;right:86px;top:236px;text-align:right;}
+.t-gen .num{font-family:var(--font-display);font-size:250px;line-height:.78;color:transparent;-webkit-text-stroke:2px rgba(244,241,234,.26);}
+.t-gen .lab{font-size:23px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.t-stats{position:absolute;left:var(--pad);bottom:66px;right:var(--pad);display:flex;gap:66px;
+  border-top:1px solid var(--faint);padding-top:32px;}
+.t-stats .n{font-family:var(--font-display);font-size:60px;color:var(--tiffany);line-height:1;}
+.t-stats .t{font-size:21px;color:var(--muted);letter-spacing:.05em;margin-top:10px;text-transform:uppercase;}
+
+/* ============ CONTENT HELPERS ============ */
+.body{position:absolute;left:var(--pad);right:var(--pad);top:150px;bottom:64px;}
+
+/* stat cards row */
+.stat-grid{display:grid;gap:22px;}
+.stat{padding:34px 34px 30px;}
+.stat .big{font-family:var(--font-display);font-size:74px;line-height:.92;color:var(--tiffany);letter-spacing:-.01em;}
+.stat .big.ink{color:var(--paper);}
+.stat .h{font-size:23px;font-weight:600;margin-top:14px;color:var(--paper);}
+.stat .p{font-size:19px;color:var(--muted);margin-top:8px;line-height:1.42;}
+
+/* labeled feature cards */
+.feat{padding:30px 32px;display:flex;flex-direction:column;gap:12px;}
+.feat .idx{font-size:19px;letter-spacing:.2em;color:var(--tiffany);font-weight:600;}
+.feat h4{font-size:26px;font-weight:700;line-height:1.12;}
+.feat p{font-size:19px;color:var(--muted);line-height:1.46;}
+
+/* comparison table */
+.cmp{width:100%;border-collapse:collapse;font-size:22px;}
+.cmp th,.cmp td{text-align:left;padding:20px 26px;border-bottom:1px solid var(--faint);}
+.cmp thead th{font-size:19px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+.cmp .metric{color:#cfc8bb;font-weight:500;}
+.cmp .cofe{color:var(--ink);font-weight:700;}
+.cmp col.hl{}
+.cmp td.cofe-cell{background:linear-gradient(180deg,rgba(10,186,181,.16),rgba(10,186,181,.16));}
+.cmp .trad{color:var(--muted);}
+.cmp tbody tr:last-child td{border-bottom:none;}
+
+/* pills / chips */
+.chips{display:flex;flex-wrap:wrap;gap:14px;}
+.chip{border:1px solid var(--faint);border-radius:999px;padding:13px 22px;font-size:20px;color:#d7d0c4;}
+.chip b{color:var(--tiffany);font-weight:700;}
+
+/* big vs layout */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;}
+.vs .side{padding:40px 44px;}
+.vs .mid{display:flex;align-items:center;justify-content:center;padding:0 34px;
+  font-family:var(--font-display);font-size:52px;color:var(--muted);}
+.vs .who{font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+.vs .time{font-family:var(--font-display);font-size:96px;line-height:1;margin:14px 0 4px;}
+.vs .robot{border-radius:10px;}
+.vs .robot .who,.vs .robot .time,.vs .robot .note{color:var(--ink);}
+.vs .robot .who{opacity:.75;}
+.vs .note{font-size:20px;color:var(--muted);}
+
+/* category tiles */
+.cat{display:flex;align-items:center;gap:16px;padding:22px 24px;font-size:23px;font-weight:600;}
+.cat .dot{width:12px;height:12px;border-radius:50%;background:var(--tiffany);flex:none;box-shadow:0 0 12px rgba(10,186,181,.7);}
+
+/* deployment locations */
+.loc{display:flex;align-items:center;gap:14px;font-size:22px;color:#d7d0c4;padding:16px 0;border-bottom:1px solid var(--faint);}
+.loc .b{width:9px;height:9px;background:var(--tiffany);border-radius:2px;flex:none;}
+
+/* logo-style client wordmarks */
+.clients{display:flex;flex-wrap:wrap;gap:18px 22px;}
+.client{border:1px solid var(--faint);border-radius:10px;padding:24px 34px;font-family:var(--font-display);
+  font-size:34px;color:var(--paper);letter-spacing:-.01em;background:var(--card);}
+
+/* footprint diagram */
+.foot-box{position:relative;border:2px dashed var(--tiffany);border-radius:8px;background:rgba(10,186,181,.06);
+  display:flex;align-items:center;justify-content:center;text-align:center;}
+.foot-box .big{font-family:var(--font-display);font-size:96px;color:var(--tiffany);line-height:.9;}
+.foot-box .lab{font-size:21px;color:#cfc8bb;margin-top:10px;letter-spacing:.04em;}
+
+/* closing */
+.close-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);}
+.close-wrap h2{font-family:var(--font-display);text-transform:uppercase;font-size:118px;line-height:.9;letter-spacing:-.02em;max-width:1500px;}
+.close-wrap h2 em{font-style:normal;color:var(--tiffany);}
+.close-cta{margin-top:44px;display:flex;gap:20px;align-items:center;}
+.btn{background:var(--tiffany);color:var(--ink);font-weight:700;font-size:24px;padding:22px 40px;border-radius:8px;letter-spacing:.02em;}
+.btn.ghost{background:transparent;color:var(--paper);border:1px solid var(--faint);}
+
+/* progress / page counter */
+.deck-controls{font-family:var(--font-body);font-size:16px;letter-spacing:.24em;color:var(--muted);
+  background:rgba(20,18,16,.7);border:1px solid var(--faint);border-radius:999px;padding:9px 20px;backdrop-filter:blur(6px);}
+.deck-controls b{color:var(--tiffany);}
+
+/* edit affordance */
+.edit-hotzone{position:fixed;top:0;left:0;width:80px;height:80px;z-index:10000;cursor:pointer;}
+.edit-toggle{position:fixed;top:18px;left:18px;width:52px;height:52px;border-radius:50%;border:1px solid var(--faint);
+  background:rgba(20,18,16,.85);color:var(--paper);font-size:22px;cursor:pointer;opacity:0;pointer-events:none;
+  transition:opacity .3s ease;z-index:10001;}
+.edit-toggle.show,.edit-toggle.active{opacity:1;pointer-events:auto;}
+.edit-toggle.active{background:var(--tiffany);color:var(--ink);border-color:var(--tiffany);}
+.editing [contenteditable]{outline:1px dashed rgba(10,186,181,.6);outline-offset:4px;border-radius:3px;}
+.edit-hint{position:fixed;top:22px;left:84px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  background:rgba(20,18,16,.85);border:1px solid var(--faint);border-radius:6px;padding:9px 14px;opacity:0;transition:opacity .3s;z-index:10001;pointer-events:none;}
+.edit-hint.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+  <!-- ============================================================
+       SLIDE 01 — TITLE / HERO
+       ============================================================ -->
+  <section class="slide title active">
+    <div class="t-top topbar reveal d1"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="mono">Autonomous Robotic Café</span></div>
+
+    <div class="plate t-plate reveal d2">
+      <div class="kick">7th Generation Robot Barista</div>
+      <h1>The Robot<span class="out">Barista</span></h1>
+      <div class="sub">Specialty-grade coffee, brewed entirely by a machine — 54 seconds a cup, zero human hands, running 24/7.</div>
+    </div>
+
+    <div class="t-gen reveal d3"><div class="num">07</div><div class="lab">Generation</div></div>
+
+    <div class="t-stats reveal d4">
+      <div><div class="n">54s</div><div class="t">Avg / cup</div></div>
+      <div><div class="n">1,000</div><div class="t">Cups / day</div></div>
+      <div><div class="n">2.35㎡</div><div class="t">Footprint</div></div>
+      <div><div class="n">65+</div><div class="t">Countries</div></div>
+      <div><div class="n">120+</div><div class="t">Patents</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 02 — THE OPPORTUNITY (why the café model is broken)
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>The Opportunity</span><span class="pg">02</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">The Opportunity</div>
+        <h2 class="title reveal d1">Coffee is booming.<br>The café model isn't.</h2>
+        <p class="lead reveal d2">Demand for quality coffee keeps climbing — but the traditional café that serves it is expensive, inconsistent, and hard to scale. Four structural costs cap every location.</p>
+
+        <div class="stat-grid reveal d3" style="grid-template-columns:repeat(4,1fr);position:absolute;left:0;right:0;bottom:0;">
+          <div class="card stat"><div class="big ink">70%+</div><div class="h">Cost is people &amp; rent</div><div class="p">Wages, rent and fit-out dominate café P&amp;L, squeezing margins on every cup.</div></div>
+          <div class="card stat"><div class="big ink">~8–10h</div><div class="h">Limited hours</div><div class="p">Staffed hours cap revenue. Peak queues turn customers away; off-hours sit idle.</div></div>
+          <div class="card stat"><div class="big ink">Varies</div><div class="h">Inconsistent cups</div><div class="p">Taste swings with the barista, the shift, and the day. Quality is hard to standardize.</div></div>
+          <div class="card stat"><div class="big ink">Slow</div><div class="h">Hard to scale</div><div class="p">Every new site means hiring, training and build-out — capital and time intensive.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">02</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 03 — MEET COFE+ (the product overview)
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>The Product</span><span class="pg">03</span></span></div>
+      <div class="body">
+        <div style="position:absolute;left:0;top:0;width:940px;">
+          <div class="eyebrow reveal d1">Meet COFE+</div>
+          <h2 class="title reveal d1" style="font-size:74px;">A full café that<br>runs itself.</h2>
+          <p class="lead reveal d2" style="font-size:25px;">COFE+ is a fully autonomous robotic café. A multi-axis robotic arm grinds fresh beans, pulls espresso, steams milk, finishes latte art and serves — with no barista on site. One compact unit replaces an entire coffee bar.</p>
+          <div class="chips reveal d3" style="margin-top:34px;">
+            <span class="chip"><b>Autonomous</b> · no staff on site</span>
+            <span class="chip"><b>24/7</b> · always open</span>
+            <span class="chip"><b>2.35㎡</b> · fits anywhere</span>
+            <span class="chip"><b>Cashless</b> · app &amp; screen ordering</span>
+          </div>
+        </div>
+
+        <!-- schematic of the robotic café -->
+        <div class="card raise reveal d3" style="position:absolute;right:0;top:-6px;width:760px;height:620px;padding:40px 42px;overflow:hidden;">
+          <div class="mono" style="font-size:18px;color:var(--muted);">System overview</div>
+          <div style="position:relative;height:100%;margin-top:16px;">
+            <div class="plate" style="position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:180px;height:180px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:24px;text-align:center;line-height:1;box-shadow:0 0 60px rgba(10,186,181,.4);">ROBOTIC<br>ARM</div>
+            <!-- orbiting module labels -->
+            <div class="mod" style="position:absolute;left:2%;top:6%;">Dual bean hoppers</div>
+            <div class="mod" style="position:absolute;right:2%;top:16%;">Espresso group</div>
+            <div class="mod" style="position:absolute;left:0;top:52%;">2–4 milk types</div>
+            <div class="mod" style="position:absolute;right:0;top:56%;">6–8 syrups</div>
+            <div class="mod" style="position:absolute;left:8%;bottom:6%;">3D foam printer</div>
+            <div class="mod" style="position:absolute;right:8%;bottom:8%;">Cup &amp; lid dispenser</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">03</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 04 — SPEED & THROUGHPUT
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Performance</span><span class="pg">04</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Speed &amp; Throughput</div>
+        <h2 class="title reveal d1">Built for the rush.</h2>
+        <p class="lead reveal d2">A patented smart algorithm lets the arm build up to five cups at once — sustaining café-level volume without a queue, around the clock.</p>
+
+        <div class="stat-grid reveal d3" style="grid-template-columns:repeat(4,1fr);position:absolute;left:0;right:0;top:320px;">
+          <div class="plate stat"><div class="big" style="color:var(--ink);">54s</div><div class="h" style="color:var(--ink);">Average per cup</div><div class="p" style="color:#0b201e;">Grind, brew, finish and serve in under a minute.</div></div>
+          <div class="card stat"><div class="big">5</div><div class="h">Cups at once</div><div class="p">Parallel builds in a single 50–55s cycle.</div></div>
+          <div class="card stat"><div class="big">1,000</div><div class="h">Cups per day</div><div class="p">Proven throughput in real deployments.</div></div>
+          <div class="card stat"><div class="big">24/7</div><div class="h">Always on</div><div class="p">No shifts, no breaks, no closing time.</div></div>
+        </div>
+
+        <div class="reveal d4" style="position:absolute;left:0;right:0;bottom:14px;">
+          <div class="mono" style="font-size:18px;color:var(--muted);margin-bottom:12px;">Daily capacity vs. a staffed two-barista bar</div>
+          <div style="height:20px;border-radius:999px;background:var(--card);overflow:hidden;border:1px solid var(--faint);position:relative;">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:linear-gradient(90deg,var(--tiffany-dk),var(--tiffany-lt));"></div>
+            <div style="position:absolute;left:45%;top:0;bottom:0;width:2px;background:var(--paper);opacity:.5;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:18px;color:var(--muted);margin-top:10px;"><span>Staffed bar ≈ 450 / day</span><span style="color:var(--tiffany);">COFE+ ≈ 1,000 / day</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">04</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 05 — MAN vs MACHINE (proof)
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Proof</span><span class="pg">05</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Man vs. Machine · Shanghai Hongqiao</div>
+        <h2 class="title reveal d1">It beat elite baristas.</h2>
+        <p class="lead reveal d2">In a live showdown at Shanghai's Coffee Culture Festival, the 7th-gen COFE+ went head-to-head with a TOC-grade competition judge on three cups.</p>
+
+        <div class="vs reveal d3" style="position:absolute;left:0;right:0;top:250px;">
+          <div class="card side">
+            <div class="who">Elite human barista</div>
+            <div class="time" style="color:var(--paper);">3:35</div>
+            <div class="note">Three cups · 71s per cup</div>
+          </div>
+          <div class="mid">VS</div>
+          <div class="plate side robot">
+            <div class="who">7th-Gen COFE+</div>
+            <div class="time">2:43</div>
+            <div class="note" style="color:#0b201e;">Three cups · 54s per cup · ~1.3× faster</div>
+          </div>
+        </div>
+
+        <div class="stat-grid reveal d4" style="grid-template-columns:repeat(3,1fr);position:absolute;left:0;right:0;bottom:8px;">
+          <div class="card stat"><div class="big">0.3%</div><div class="h">Error rate</div><div class="p">Weight deviation of just ±0.8g across cups — repeatable to the gram.</div></div>
+          <div class="card stat"><div class="big">100%</div><div class="h">Consistency</div><div class="p">Every cup identical: same dose, same temperature, same pour.</div></div>
+          <div class="card stat"><div class="big">1.3×</div><div class="h">Faster</div><div class="p">Quicker than a championship judge — while multitasking five builds.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">05</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 06 — THE MENU
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>The Menu</span><span class="pg">06</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">A Menu Without Limits</div>
+        <h2 class="title reveal d1" style="font-size:70px;">300+ drinks. 8 categories.<br>5,000+ ways to customize.</h2>
+        <p class="lead reveal d2" style="font-size:24px;max-width:1120px;">From freshly ground espresso to matcha and plant-based lattes — with signature recipes drawn from 197 countries, and strength, sweetness, temperature and toppings all dialed in per order.</p>
+
+        <div class="stat-grid reveal d3" style="grid-template-columns:repeat(4,1fr);gap:16px;position:absolute;left:0;right:400px;top:330px;">
+          <div class="card cat"><span class="dot"></span>Fresh-ground coffee</div>
+          <div class="card cat"><span class="dot"></span>Milk tea</div>
+          <div class="card cat"><span class="dot"></span>Matcha</div>
+          <div class="card cat"><span class="dot"></span>Chocolate</div>
+          <div class="card cat"><span class="dot"></span>Plant-based milks</div>
+          <div class="card cat"><span class="dot"></span>Coffee–tea blends</div>
+          <div class="card cat"><span class="dot"></span>Latte art</div>
+          <div class="card cat"><span class="dot"></span>3D-printed foam</div>
+        </div>
+
+        <!-- signature capability callout -->
+        <div class="plate reveal d4" style="position:absolute;right:0;top:330px;width:360px;bottom:8px;padding:34px 34px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="mono" style="font-size:18px;color:#0b201e;opacity:.7;">Signature move</div>
+          <div style="font-family:var(--font-display);font-size:40px;line-height:1;margin-top:14px;color:var(--ink);">Latte art<br>&amp; photo-<br>quality 3D<br>foam prints</div>
+          <div style="font-size:19px;color:#0b201e;margin-top:18px;line-height:1.45;">Hand-poured tulips and hearts, plus high-resolution images printed right onto the crema.</div>
+        </div>
+
+        <div class="chips reveal d4" style="position:absolute;left:0;bottom:8px;">
+          <span class="chip"><b>197</b> country recipes</span>
+          <span class="chip"><b>2–4</b> milk types</span>
+          <span class="chip"><b>6–8</b> syrups</span>
+          <span class="chip"><b>4–7</b> toppings</span>
+        </div>
+      </div>
+    </div>
+    <div class="snum">06</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 07 — TECHNOLOGY
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Technology</span><span class="pg">07</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Under the Hood</div>
+        <h2 class="title reveal d1">Engineered to the gram.</h2>
+        <p class="lead reveal d2">Every subsystem is purpose-built and orchestrated by an on-board smart algorithm — so quality never depends on who's working.</p>
+
+        <div class="stat-grid reveal d3" style="grid-template-columns:repeat(3,1fr);gap:20px;position:absolute;left:0;right:0;top:250px;">
+          <div class="card feat"><div class="idx">01</div><h4>Multi-axis robotic arm</h4><p>Proprietary arm executes grind, tamp, brew, steam and pour — and hand-poured latte-art patterns.</p></div>
+          <div class="card feat"><div class="idx">02</div><h4>Dual bean hoppers</h4><p>Two hoppers run multiple bean varieties, so espresso and single-origin live side by side.</p></div>
+          <div class="card feat"><div class="idx">03</div><h4>Modular ingredients</h4><p>2–4 milks, 6–8 syrups and 4–7 toppings combine into thousands of made-to-order drinks.</p></div>
+          <div class="card feat"><div class="idx">04</div><h4>High-res 3D foam printing</h4><p>Prints photo-quality images directly onto milk foam — logos, faces, seasonal art.</p></div>
+          <div class="card feat"><div class="idx">05</div><h4>Smart algorithm</h4><p>Schedules up to five parallel builds and holds ±0.8g precision on every pour.</p></div>
+          <div class="card feat"><div class="idx">06</div><h4>Remote monitoring</h4><p>Cloud dashboard tracks stock, sales and health — one operator oversees a whole fleet.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">07</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 08 — UNIT ECONOMICS (the business case)
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>The Business Case</span><span class="pg">08</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Unit Economics</div>
+        <h2 class="title reveal d1">Up to 90% lower<br>operating cost.</h2>
+
+        <table class="cmp reveal d3" style="position:absolute;left:0;right:0;top:290px;">
+          <colgroup><col style="width:34%"><col style="width:33%"><col class="hl" style="width:33%"></colgroup>
+          <thead><tr><th></th><th class="trad">Traditional café</th><th style="color:var(--tiffany);">COFE+ robotic café</th></tr></thead>
+          <tbody>
+            <tr><td class="metric">Staffing</td><td class="trad">3–6 baristas per site</td><td class="cofe-cell cofe">1 operator monitors 10 units</td></tr>
+            <tr><td class="metric">Hours</td><td class="trad">~8–10 hrs, staff-limited</td><td class="cofe-cell cofe">24 / 7, fully unattended</td></tr>
+            <tr><td class="metric">Footprint &amp; fit-out</td><td class="trad">40–120㎡, heavy build-out</td><td class="cofe-cell cofe">2.35㎡, plug-and-serve</td></tr>
+            <tr><td class="metric">Daily upkeep</td><td class="trad">Cleaning, prep, cash-up</td><td class="cofe-cell cofe">~15 min restock per unit</td></tr>
+          </tbody>
+        </table>
+
+        <div class="stat-grid reveal d4" style="grid-template-columns:repeat(3,1fr);position:absolute;left:0;right:0;bottom:6px;">
+          <div class="plate stat"><div class="big" style="color:var(--ink);">90%</div><div class="h" style="color:var(--ink);">Lower opex</div><div class="p" style="color:#0b201e;">Less wage, rent and fit-out per cup.</div></div>
+          <div class="card stat"><div class="big">10:1</div><div class="h">Units per operator</div><div class="p">One person remotely runs a fleet of ten.</div></div>
+          <div class="card stat"><div class="big">15 min</div><div class="h">Daily restock</div><div class="p">The only on-site task, once a day.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">08</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 09 — DEPLOYMENT & MODELS
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Deployment</span><span class="pg">09</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Fits Anywhere · Six Form Factors</div>
+        <h2 class="title reveal d1" style="font-size:72px;">2.35㎡ is all it takes.</h2>
+
+        <!-- footprint box -->
+        <div class="foot-box reveal d2" style="position:absolute;left:0;top:280px;width:430px;height:430px;">
+          <div><div class="big">2.35㎡</div><div class="lab">Total footprint —<br>smaller than a parking bay</div></div>
+        </div>
+
+        <!-- where it goes -->
+        <div class="reveal d3" style="position:absolute;left:490px;top:280px;width:520px;">
+          <div class="mono" style="font-size:18px;color:var(--muted);margin-bottom:6px;">Where it goes</div>
+          <div class="loc"><span class="b"></span>Airports &amp; transit hubs</div>
+          <div class="loc"><span class="b"></span>Business districts &amp; offices</div>
+          <div class="loc"><span class="b"></span>Corporate campuses</div>
+          <div class="loc"><span class="b"></span>Universities</div>
+          <div class="loc"><span class="b"></span>Malls &amp; high-traffic retail</div>
+        </div>
+
+        <!-- model lineup -->
+        <div class="reveal d4" style="position:absolute;right:0;top:280px;width:800px;">
+          <div class="mono" style="font-size:18px;color:var(--muted);margin-bottom:12px;">A model for every site</div>
+          <div class="stat-grid" style="grid-template-columns:repeat(2,1fr);gap:14px;">
+            <div class="card feat" style="padding:22px 24px;"><h4 style="font-size:23px;">Corner Robot Café</h4><p style="font-size:17px;">Drops into an unused corner of any lobby.</p></div>
+            <div class="card feat" style="padding:22px 24px;"><h4 style="font-size:23px;">Embedded Cabinet</h4><p style="font-size:17px;">Built into a wall or counter run.</p></div>
+            <div class="card feat" style="padding:22px 24px;"><h4 style="font-size:23px;">Mini Robot Coffee Bar</h4><p style="font-size:17px;">Smallest footprint for tight spaces.</p></div>
+            <div class="card feat" style="padding:22px 24px;"><h4 style="font-size:23px;">Mobile Kiosk</h4><p style="font-size:17px;">Relocatable for events and pop-ups.</p></div>
+            <div class="card feat" style="padding:22px 24px;"><h4 style="font-size:23px;">Outdoor Shop · South</h4><p style="font-size:17px;">Weather-ready build for warm climates.</p></div>
+            <div class="card feat" style="padding:22px 24px;"><h4 style="font-size:23px;">Outdoor Shop · North</h4><p style="font-size:17px;">Insulated build for cold climates.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">09</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 10 — TRACTION / PROOF POINTS
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Traction</span><span class="pg">10</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Proven, Worldwide</div>
+        <h2 class="title reveal d1">Serving 65+ countries.</h2>
+        <p class="lead reveal d2">From airports to Ivy League campuses, COFE+ is already pouring at scale for some of the world's most demanding venues.</p>
+
+        <div class="stat-grid reveal d3" style="grid-template-columns:repeat(4,1fr);position:absolute;left:0;right:0;top:250px;">
+          <div class="plate stat"><div class="big" style="color:var(--ink);">65+</div><div class="h" style="color:var(--ink);">Countries</div></div>
+          <div class="card stat"><div class="big">200+</div><div class="h">Cities</div></div>
+          <div class="card stat"><div class="big">1,000</div><div class="h">Cups/day per unit</div></div>
+          <div class="card stat"><div class="big">#1</div><div class="h">vs. elite baristas</div></div>
+        </div>
+
+        <div class="reveal d4" style="position:absolute;left:0;right:0;bottom:14px;">
+          <div class="mono" style="font-size:18px;color:var(--muted);margin-bottom:16px;">Trusted at</div>
+          <div class="clients">
+            <div class="client">amazon</div>
+            <div class="client">Google</div>
+            <div class="client">Harvard</div>
+            <div class="client">Caltech</div>
+            <div class="client" style="color:var(--muted);border-style:dashed;">+ airports &amp; transit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">10</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 11 — CREDENTIALS & SUSTAINABILITY
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Credentials</span><span class="pg">11</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Certified &amp; Responsible</div>
+        <h2 class="title reveal d1">Built to global standard.</h2>
+
+        <div style="position:absolute;left:0;top:250px;width:920px;">
+          <div class="stat-grid reveal d3" style="grid-template-columns:repeat(2,1fr);">
+            <div class="card stat"><div class="big">120+</div><div class="h">International patents</div><div class="p">A deep IP moat across mechanism, control and food-safety systems.</div></div>
+            <div class="card stat"><div class="big">18+</div><div class="h">Developed markets</div><div class="p">Certified to the standards of 18+ developed countries.</div></div>
+          </div>
+          <div class="chips reveal d4" style="margin-top:22px;">
+            <span class="chip"><b>FDA</b></span><span class="chip"><b>CE</b></span><span class="chip"><b>UKCA</b></span>
+            <span class="chip"><b>KC</b> · Korea</span><span class="chip"><b>SASO</b></span><span class="chip">Japan food-safety</span>
+          </div>
+        </div>
+
+        <!-- sustainability plate -->
+        <div class="plate reveal d4" style="position:absolute;right:0;top:250px;width:640px;bottom:6px;padding:44px 46px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="mono" style="font-size:18px;color:#0b201e;opacity:.7;">Sustainability</div>
+          <div style="font-family:var(--font-display);font-size:52px;line-height:.98;margin-top:14px;color:var(--ink);">“The Green Giant of the coffee world.”</div>
+          <div style="display:flex;gap:44px;margin-top:30px;">
+            <div><div style="font-family:var(--font-display);font-size:52px;color:var(--ink);">95%</div><div style="font-size:19px;color:#0b201e;">Recyclable materials</div></div>
+            <div><div style="font-family:var(--font-display);font-size:52px;color:var(--ink);">100%</div><div style="font-size:19px;color:#0b201e;">Professional waste handling</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">11</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 12 — CLOSING / CTA
+       ============================================================ -->
+  <section class="slide">
+    <div class="close-wrap">
+      <div class="topbar reveal d1" style="position:absolute;top:52px;left:var(--pad);right:var(--pad);"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="mono">7th Generation Robot Barista</span></div>
+      <div class="eyebrow reveal d1">The Café, Reinvented</div>
+      <h2 class="reveal d2">Coffee that runs itself —<br><em>anywhere, all day.</em></h2>
+      <p class="lead reveal d3" style="font-size:26px;">A specialty café in 2.35㎡: 54-second cups, 1,000 a day, 90% lower cost. Let's put one where your customers are.</p>
+      <div class="close-cta reveal d4">
+        <span class="btn">Book a live demo</span>
+        <span class="btn ghost">hi-dolphin.com</span>
+      </div>
+      <div class="reveal d4" style="position:absolute;bottom:92px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;border-top:1px solid var(--faint);padding-top:26px;font-size:20px;color:var(--muted);">
+        <span>Shanghai Hi-Dolphin Robot Technology</span>
+        <span class="mono">COFE+ · Robot Barista</span>
+      </div>
+    </div>
+    <div class="snum">12</div>
+  </section>
+
+</main>
+</div>
+
+<!-- page counter -->
+<div class="deck-controls"><b id="pgCur">01</b> / <span id="pgTot">12</span></div>
+
+<!-- inline edit affordance -->
+<div class="edit-hotzone" title="Edit mode (E)"></div>
+<button class="edit-toggle" id="editToggle" title="Edit mode (E)">✏️</button>
+<div class="edit-hint" id="editHint">Edit mode — click text · Ctrl+S to save</div>
+
+<style>
+/* module label chips used in the slide-03 schematic */
+.mod{font-size:17px;color:#d7d0c4;background:var(--card);border:1px solid var(--faint);border-radius:8px;padding:9px 13px;line-height:1.15;max-width:190px;}
+</style>
+
+<script>
+/* ===========================================
+   SLIDE PRESENTATION CONTROLLER
+   - fixed-stage scaling (letterbox, never reflow)
+   - keyboard / wheel / touch navigation
+   - page counter; replays reveals on each visit
+   =========================================== */
+class SlidePresentation{
+  constructor(){
+    this.slides=[...document.querySelectorAll('.slide')];
+    this.stage=document.getElementById('deckStage');
+    this.i=0;this.wheelLock=false;
+    document.getElementById('pgTot').textContent=String(this.slides.length).padStart(2,'0');
+    this.scale();addEventListener('resize',()=>this.scale());
+    this.keys();this.wheel();this.touch();
+    this.show(0);
+  }
+  scale(){
+    const f=Math.min(innerWidth/1920,innerHeight/1080);
+    const x=(innerWidth-1920*f)/2,y=(innerHeight-1080*f)/2;
+    this.stage.style.transform=`translate(${x}px,${y}px) scale(${f})`;
+  }
+  show(n){
+    this.i=Math.max(0,Math.min(n,this.slides.length-1));
+    this.slides.forEach((s,k)=>{
+      const on=k===this.i;
+      s.classList.toggle('active',on);
+      if(on){void s.offsetWidth;s.classList.add('visible');}   // re-trigger reveal
+      else s.classList.remove('visible');
+    });
+    document.getElementById('pgCur').textContent=String(this.i+1).padStart(2,'0');
+  }
+  next(){this.show(this.i+1);} prev(){this.show(this.i-1);}
+  keys(){
+    addEventListener('keydown',e=>{
+      if(e.target.getAttribute && e.target.getAttribute('contenteditable'))return;
+      if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.next();}
+      else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.prev();}
+      else if(e.key==='Home'){this.show(0);} else if(e.key==='End'){this.show(this.slides.length-1);}
+    });
+  }
+  wheel(){
+    addEventListener('wheel',e=>{
+      if(this.wheelLock)return;
+      if(Math.abs(e.deltaY)<24)return;
+      this.wheelLock=true;setTimeout(()=>this.wheelLock=false,650);
+      e.deltaY>0?this.next():this.prev();
+    },{passive:true});
+  }
+  touch(){
+    let x0=0,y0=0;
+    addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+    addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;
+      if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){dx<0?this.next():this.prev();}
+      else if(Math.abs(dy)>60){dy<0?this.next():this.prev();}
+    },{passive:true});
+  }
+}
+const deck=new SlidePresentation();
+window.deck=deck;   /* expose for external tooling / deep-linking */
+
+/* ===========================================
+   INLINE EDITING (post-draft affordance)
+   Hover top-left or press E; edits persist to localStorage; Ctrl+S exports.
+   =========================================== */
+const EDIT_KEY='cofe_deck_edits_v1';
+const editor={
+  isActive:false,
+  selector:'h1,h2,h3,h4,p,span,div.big,div.h,div.lab,td,th',
+  toggle(){
+    this.isActive=!this.isActive;
+    document.body.classList.toggle('editing',this.isActive);
+    document.getElementById('editToggle').classList.toggle('active',this.isActive);
+    document.getElementById('editHint').classList.toggle('show',this.isActive);
+    document.querySelectorAll(this.selector).forEach(el=>{
+      if(el.children.length===0){el.setAttribute('contenteditable',this.isActive);}
+    });
+    if(!this.isActive)this.save();
+  },
+  save(){
+    const map={};
+    document.querySelectorAll('[data-eid]').forEach(el=>map[el.dataset.eid]=el.innerHTML);
+    localStorage.setItem(EDIT_KEY,JSON.stringify(map));
+  },
+  restore(){
+    let raw;try{raw=JSON.parse(localStorage.getItem(EDIT_KEY)||'{}');}catch(e){return;}
+    Object.entries(raw).forEach(([id,html])=>{const el=document.querySelector(`[data-eid="${id}"]`);if(el)el.innerHTML=html;});
+  }
+};
+/* tag editable leaf nodes with stable ids for persistence */
+document.querySelectorAll('h1,h2,h3,h4,p,span,td,th,.big,.h,.lab,.sub,.note,.time,.who').forEach((el,k)=>{
+  if(el.children.length===0)el.dataset.eid='e'+k;
+});
+editor.restore();
+
+const hotzone=document.querySelector('.edit-hotzone');
+const editToggle=document.getElementById('editToggle');
+let hideTimeout=null;
+hotzone.addEventListener('mouseenter',()=>{clearTimeout(hideTimeout);editToggle.classList.add('show');});
+hotzone.addEventListener('mouseleave',()=>{hideTimeout=setTimeout(()=>{if(!editor.isActive)editToggle.classList.remove('show');},400);});
+editToggle.addEventListener('mouseenter',()=>clearTimeout(hideTimeout));
+editToggle.addEventListener('mouseleave',()=>{hideTimeout=setTimeout(()=>{if(!editor.isActive)editToggle.classList.remove('show');},400);});
+editToggle.addEventListener('click',()=>editor.toggle());
+hotzone.addEventListener('click',()=>editor.toggle());
+addEventListener('keydown',e=>{
+  if((e.key==='e'||e.key==='E')&&!e.target.getAttribute('contenteditable')){editor.toggle();}
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){
+    e.preventDefault();editor.save();
+    /* export a standalone copy of the current deck */
+    const clone=document.documentElement.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));
+    const blob=new Blob(['<!DOCTYPE html>\n'+clone.outerHTML],{type:'text/html'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='cofe-plus-robot-barista.html';a.click();
+  }
+});
+</script>
+</body>
+</html>
