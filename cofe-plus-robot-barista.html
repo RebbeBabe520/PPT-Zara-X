@@ -217,6 +217,16 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
 .pf-idx{font-family:var(--font-body);font-size:14px;letter-spacing:.16em;color:var(--tiffany);font-weight:600;margin-bottom:8px;}
 .pf-name{font-family:var(--font-body);font-weight:700;font-size:20px;line-height:1.14;color:var(--paper);}
 .pf-pitch{font-size:15px;line-height:1.42;color:var(--muted);margin-top:10px;}
+/* ===== sector deployment list (Where We Serve) ===== */
+.sector-list{position:absolute;left:0;right:0;top:186px;bottom:14px;display:flex;flex-direction:column;gap:13px;}
+.sector{flex:1;display:grid;grid-template-columns:360px 1fr;gap:30px;align-items:center;
+  background:var(--card,#1c1a16);border:1px solid var(--faint);border-radius:12px;padding:14px 30px;}
+.sector-head{display:flex;align-items:center;gap:18px;}
+.sector-ico{font-size:42px;line-height:1;flex:none;}
+.sector-name{font-family:var(--font-body);font-weight:700;font-size:25px;color:var(--paper);line-height:1.1;}
+.sector-tag{font-size:14px;color:var(--tiffany);letter-spacing:.1em;text-transform:uppercase;margin-top:5px;}
+.sector-body{font-size:17.5px;line-height:1.48;color:#cfc8bb;}
+.sector-body b{color:var(--paper);font-weight:700;}
 .deck-controls{font-family:var(--font-body);font-size:16px;letter-spacing:.24em;color:var(--muted);
   background:rgba(20,18,16,.7);border:1px solid var(--faint);border-radius:999px;padding:9px 20px;backdrop-filter:blur(6px);}
 .deck-controls b{color:var(--tiffany);}
@@ -584,7 +594,8 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
             <div class="client">Google</div>
             <div class="client">Harvard</div>
             <div class="client">Caltech</div>
-            <div class="client" style="color:var(--muted);border-style:dashed;">+ airports &amp; transit</div>
+            <div class="client">SAP</div>
+            <div class="client" style="color:var(--muted);border-style:dashed;">+ hospitals · airports · campuses</div>
           </div>
         </div>
       </div>
@@ -593,11 +604,48 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
   </section>
 
   <!-- ============================================================
-       SLIDE 12 — CREDENTIALS & SUSTAINABILITY
+       SLIDE 12 — DEPLOYED ACROSS EVERY SECTOR
        ============================================================ -->
   <section class="slide">
     <div class="wrap">
-      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Credentials</span><span class="pg">12</span></span></div>
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Where We Serve</span><span class="pg">12</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Proven Across Every Sector</div>
+        <h2 class="title reveal d1" style="font-size:58px;">Trusted where it matters most.</h2>
+
+        <div class="sector-list reveal d3">
+          <div class="sector">
+            <div class="sector-head"><span class="sector-ico">🏥</span><div><div class="sector-name">Healthcare</div><div class="sector-tag">Hospitals · round-the-clock care</div></div></div>
+            <div class="sector-body"><b>Massachusetts General</b> — the world's #1 hospital — ran the first 6th-gen robotic café; <b>Texas Children's</b> serves ER teams at 2&nbsp;AM. Also Shanghai Sixth, Renji, Air Force &amp; Kuala Lumpur hospitals — 10+ hygiene technologies, all food-grade certified.</div>
+          </div>
+          <div class="sector">
+            <div class="sector-head"><span class="sector-ico">✈️</span><div><div class="sector-name">Transportation</div><div class="sector-tag">Airports · 24/7 travel hubs</div></div></div>
+            <div class="sector-body"><b>Denver International</b> (4th-busiest U.S. airport) and <b>Shanghai Hongqiao</b> run unattended 24/7; <b>Chişinău, Moldova</b> reached full ROI in 4 months at 200+ cups/day. Plus Brussels, Kuala Lumpur, Hangzhou &amp; Kunming.</div>
+          </div>
+          <div class="sector">
+            <div class="sector-head"><span class="sector-ico">🏢</span><div><div class="sector-name">Corporate &amp; Enterprise</div><div class="sector-tag">Fortune 500 workplaces</div></div></div>
+            <div class="sector-body">Deployed at <b>SAP</b>, <b>Amazon</b>, <b>Google</b>, <b>Sodexo</b> and <b>Compass</b> — plus Sinopec, China Mobile and Bank of China — following partnerships with Harvard and Mass General.</div>
+          </div>
+          <div class="sector">
+            <div class="sector-head"><span class="sector-ico">🌍</span><div><div class="sector-name">Global Events &amp; Forums</div><div class="sector-tag">The world stage</div></div></div>
+            <div class="sector-body">Invited to serve at the <b>World Economic Forum (Davos)</b>, the <b>Asian Games</b>, <b>APEC Summit</b> and <b>Expo 2020 Dubai</b>.</div>
+          </div>
+          <div class="sector">
+            <div class="sector-head"><span class="sector-ico">🏫</span><div><div class="sector-name">Education</div><div class="sector-tag">Universities · 24/7 campuses</div></div></div>
+            <div class="sector-body"><b>Harvard</b>, <b>NUS Singapore</b>, <b>Univ. of Hong Kong</b> and <b>Texas A&amp;M</b>; <b>Tongji</b> runs 10 units across 5 campuses at 90% lower cost. Plus SJTU, Fudan, University of London &amp; Monash.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">12</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 13 — CREDENTIALS & SUSTAINABILITY
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Credentials</span><span class="pg">13</span></span></div>
       <div class="body">
         <div class="eyebrow reveal d1">Certified &amp; Responsible</div>
         <h2 class="title reveal d1">Built to global standard.</h2>
@@ -624,11 +672,11 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
         </div>
       </div>
     </div>
-    <div class="snum">12</div>
+    <div class="snum">13</div>
   </section>
 
   <!-- ============================================================
-       SLIDE 13 — CLOSING / CTA
+       SLIDE 14 — CLOSING / CTA
        ============================================================ -->
   <section class="slide">
     <div class="close-wrap">
@@ -645,7 +693,7 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
         <span class="mono">COFE+ · Robot Barista</span>
       </div>
     </div>
-    <div class="snum">13</div>
+    <div class="snum">14</div>
   </section>
 
 </main>
