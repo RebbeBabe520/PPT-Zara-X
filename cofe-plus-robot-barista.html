@@ -250,6 +250,14 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
 .edit-hint{position:fixed;top:22px;left:84px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
   background:rgba(20,18,16,.85);border:1px solid var(--faint);border-radius:6px;padding:9px 14px;opacity:0;transition:opacity .3s;z-index:10001;pointer-events:none;}
 .edit-hint.show{opacity:1;}
+
+/* ===== certifications: region grid + viz captions ===== */
+.cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cert-region{background:var(--card,#1c1a16);border:1px solid var(--faint);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;}
+.cert-region .r{font-weight:700;font-size:18px;color:var(--paper);margin-bottom:11px;line-height:1.1;}
+.cert-region .b{display:flex;flex-wrap:wrap;gap:7px;}
+.cert-badge{font-size:13px;color:var(--tiffany);border:1px solid rgba(10,186,181,.4);border-radius:6px;padding:5px 9px;letter-spacing:.02em;}
+.viz-cap{font-size:14px;color:var(--muted);text-align:center;letter-spacing:.14em;text-transform:uppercase;margin-top:4px;}
 </style>
 </head>
 <body>
@@ -672,34 +680,53 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
   </section>
 
   <!-- ============================================================
-       SLIDE 14 — CREDENTIALS & SUSTAINABILITY
+       SLIDE 14 — REGIONAL MARKET ACCESS & CERTIFICATIONS
        ============================================================ -->
   <section class="slide">
     <div class="wrap">
-      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Credentials</span><span class="pg">14</span></span></div>
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Certifications</span><span class="pg">14</span></span></div>
       <div class="body">
-        <div class="eyebrow reveal d1">Certified &amp; Responsible</div>
-        <h2 class="title reveal d1">Built to global standard.</h2>
+        <div class="eyebrow reveal d1">Regional Market Access</div>
+        <h2 class="title reveal d1" style="font-size:66px;">Certified for the world.</h2>
 
-        <div style="position:absolute;left:0;top:250px;width:920px;">
-          <div class="stat-grid reveal d3" style="grid-template-columns:repeat(2,1fr);">
-            <div class="card stat"><div class="big">120+</div><div class="h">International patents</div><div class="p">A deep IP moat across mechanism, control and food-safety systems.</div></div>
-            <div class="card stat"><div class="big">18+</div><div class="h">Developed markets</div><div class="p">Certified to the standards of 18+ developed countries.</div></div>
-          </div>
-          <div class="chips reveal d4" style="margin-top:22px;">
-            <span class="chip"><b>FDA</b></span><span class="chip"><b>CE</b></span><span class="chip"><b>UKCA</b></span>
-            <span class="chip"><b>KC</b> · Korea</span><span class="chip"><b>SASO</b></span><span class="chip">Japan food-safety</span>
+        <div class="reveal d2" style="position:absolute;left:0;top:170px;width:250px;">
+          <div style="height:246px;"><svg viewBox="0 0 260 300" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="segrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#63D9D0"/><stop offset="1" stop-color="#0a8f8a"/></linearGradient></defs>
+  <path d="M104 224 L104 292 L130 272 L156 292 L156 224 Z" fill="#0a8f8a"/>
+  <circle cx="130" cy="128" r="110" fill="none" stroke="#0ABAB5" stroke-width="12" stroke-dasharray="1.6 10" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="130" cy="128" r="96" fill="none" stroke="#0ABAB5" stroke-width="2"/>
+  <circle cx="130" cy="128" r="86" fill="url(#segrad)"/>
+  <text x="130" y="104" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="11.5" letter-spacing="2.5" fill="#0c1615">INTERNATIONAL</text>
+  <text x="130" y="152" text-anchor="middle" font-family="'Archivo Black',sans-serif" font-size="50" fill="#0c1615">120+</text>
+  <text x="130" y="178" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#0c1615">PATENTS</text>
+</svg></div>
+          <div class="viz-cap">International patents</div>
+        </div>
+        <div class="reveal d2" style="position:absolute;left:286px;top:170px;width:300px;">
+          <div style="height:246px;"><svg viewBox="0 0 300 300" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"><circle cx="150" cy="150" r="130" fill="rgba(10,186,181,0.06)" stroke="#0ABAB5" stroke-width="1.5"/><line x1="51" y1="66" x2="249" y2="66" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><line x1="28" y1="106" x2="272" y2="106" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><line x1="20" y1="150" x2="280" y2="150" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><line x1="28" y1="194" x2="272" y2="194" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><line x1="51" y1="234" x2="249" y2="234" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><ellipse cx="150" cy="150" rx="130" ry="130" fill="none" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><ellipse cx="150" cy="150" rx="88" ry="130" fill="none" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><ellipse cx="150" cy="150" rx="44" ry="130" fill="none" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><line x1="150" y1="20" x2="150" y2="280" stroke="#0ABAB5" stroke-width="1" opacity="0.4"/><circle cx="78" cy="98" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="78" cy="98" r="5" fill="#63D9D0"/><circle cx="122" cy="58" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="122" cy="58" r="5" fill="#63D9D0"/><circle cx="174" cy="88" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="174" cy="88" r="5" fill="#63D9D0"/><circle cx="224" cy="124" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="224" cy="124" r="5" fill="#63D9D0"/><circle cx="66" cy="164" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="66" cy="164" r="5" fill="#63D9D0"/><circle cx="128" cy="178" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="128" cy="178" r="5" fill="#63D9D0"/><circle cx="198" cy="194" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="198" cy="194" r="5" fill="#63D9D0"/><circle cx="242" cy="156" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="242" cy="156" r="5" fill="#63D9D0"/><circle cx="158" cy="242" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="158" cy="242" r="5" fill="#63D9D0"/><circle cx="102" cy="228" r="10" fill="none" stroke="#63D9D0" stroke-width="1.2" opacity="0.55"/><circle cx="102" cy="228" r="5" fill="#63D9D0"/></svg></div>
+          <div class="viz-cap">Certified in 10+ markets</div>
+        </div>
+
+        <div class="plate reveal d3" style="position:absolute;right:0;top:170px;width:770px;height:284px;padding:32px 40px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="mono" style="font-size:16px;color:#0b201e;opacity:.7;">The only brand of its kind</div>
+          <div style="font-family:var(--font-display);font-size:32px;line-height:1.07;margin-top:12px;color:var(--ink);">Certified across every major market — simultaneously.</div>
+          <div style="font-size:17px;color:#0b201e;margin-top:13px;line-height:1.45;">US · EU · UK · Middle East · Australia &amp; NZ · Southeast Asia · Japan · South Korea · United Nations</div>
+          <div style="display:flex;gap:44px;margin-top:20px;">
+            <div><div style="font-family:var(--font-display);font-size:38px;color:var(--ink);line-height:1;">120+</div><div style="font-size:15px;color:#0b201e;margin-top:6px;">Int'l patents</div></div>
+            <div><div style="font-family:var(--font-display);font-size:38px;color:var(--ink);line-height:1;">50+</div><div style="font-size:15px;color:#0b201e;margin-top:6px;">Certifications</div></div>
+            <div><div style="font-family:var(--font-display);font-size:38px;color:var(--ink);line-height:1;">10</div><div style="font-size:15px;color:#0b201e;margin-top:6px;">Markets</div></div>
           </div>
         </div>
 
-        <!-- sustainability plate -->
-        <div class="plate reveal d4" style="position:absolute;right:0;top:250px;width:640px;bottom:6px;padding:44px 46px;display:flex;flex-direction:column;justify-content:center;">
-          <div class="mono" style="font-size:18px;color:#0b201e;opacity:.7;">Sustainability</div>
-          <div style="font-family:var(--font-display);font-size:52px;line-height:.98;margin-top:14px;color:var(--ink);">“The Green Giant of the coffee world.”</div>
-          <div style="display:flex;gap:44px;margin-top:30px;">
-            <div><div style="font-family:var(--font-display);font-size:52px;color:var(--ink);">95%</div><div style="font-size:19px;color:#0b201e;">Recyclable materials</div></div>
-            <div><div style="font-family:var(--font-display);font-size:52px;color:var(--ink);">100%</div><div style="font-size:19px;color:#0b201e;">Professional waste handling</div></div>
-          </div>
+        <div class="cert-grid reveal d4" style="position:absolute;left:0;right:0;top:496px;bottom:6px;">
+          <div class="cert-region"><div class="r">United States</div><div class="b"><span class="cert-badge">FDA</span><span class="cert-badge">FCC</span></div></div>
+          <div class="cert-region"><div class="r">European Union</div><div class="b"><span class="cert-badge">CE</span><span class="cert-badge">EU Environmental</span></div></div>
+          <div class="cert-region"><div class="r">United Kingdom</div><div class="b"><span class="cert-badge">UKCA</span></div></div>
+          <div class="cert-region"><div class="r">Middle East</div><div class="b"><span class="cert-badge">Regional · multiple</span></div></div>
+          <div class="cert-region"><div class="r">Australia &amp; New Zealand</div><div class="b"><span class="cert-badge">ANZ Quality</span></div></div>
+          <div class="cert-region"><div class="r">Southeast Asia</div><div class="b"><span class="cert-badge">SEA Quality</span></div></div>
+          <div class="cert-region"><div class="r">Japan &amp; South Korea</div><div class="b"><span class="cert-badge">KC</span><span class="cert-badge">Market-specific</span></div></div>
+          <div class="cert-region"><div class="r">United Nations</div><div class="b"><span class="cert-badge">UN-related</span></div></div>
         </div>
       </div>
     </div>
@@ -707,7 +734,34 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
   </section>
 
   <!-- ============================================================
-       SLIDE 15 — CLOSING / CTA
+       SLIDE 15 — SUSTAINABILITY (The Green Giant)
+       ============================================================ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="topbar"><span>Hi-Dolphin&nbsp;·&nbsp;<b>COFE+</b></span><span class="rt mono"><span>Sustainability</span><span class="pg">15</span></span></div>
+      <div class="body">
+        <div class="eyebrow reveal d1">Responsible by Design</div>
+        <h2 class="title reveal d1">The Green Giant<br>of coffee.</h2>
+        <p class="lead reveal d2" style="max-width:940px;">COFE+ is built to the strict environmental standards of the U.S., Europe and Japan — engineered to serve responsibly, at scale, around the clock.</p>
+
+        <div class="plate reveal d3" style="position:absolute;right:0;top:250px;width:680px;height:296px;padding:40px 44px;display:flex;flex-direction:column;justify-content:center;">
+          <div class="mono" style="font-size:16px;color:#0b201e;opacity:.7;">Why it matters</div>
+          <div style="font-family:var(--font-display);font-size:30px;line-height:1.1;margin-top:12px;color:var(--ink);">One robot, a fraction of the footprint.</div>
+          <div style="font-size:18px;color:#0b201e;margin-top:16px;line-height:1.5;">No daily over-production, no shift waste — a compact unit built from recyclable materials and professionally recycled at end of life.</div>
+        </div>
+
+        <div class="stat-grid reveal d4" style="grid-template-columns:repeat(3,1fr);position:absolute;left:0;right:0;bottom:8px;">
+          <div class="plate stat"><div class="big" style="color:var(--ink);">95%</div><div class="h" style="color:var(--ink);">Recyclable materials</div><div class="p" style="color:#0b201e;">Designed for a circular, low-waste lifecycle.</div></div>
+          <div class="card stat"><div class="big">100%</div><div class="h">Professional waste handling</div><div class="p">Every by-product responsibly processed.</div></div>
+          <div class="card stat"><div class="big">US·EU·JP</div><div class="h">Environmental compliance</div><div class="p">Meets the toughest green standards in three major markets.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="snum">15</div>
+  </section>
+
+  <!-- ============================================================
+       SLIDE 16 — CLOSING / CTA
        ============================================================ -->
   <section class="slide">
     <div class="close-wrap">
@@ -724,7 +778,7 @@ h2.title{font-family:var(--font-display);text-transform:uppercase;line-height:.9
         <span class="mono">COFE+ · Robot Barista</span>
       </div>
     </div>
-    <div class="snum">15</div>
+    <div class="snum">16</div>
   </section>
 
 </main>
