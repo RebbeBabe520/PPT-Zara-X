@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Airports Are the Perfect Location for Robot Coffee Kiosks — COFE+</title>
+
+<!-- ============ FONTS: Source Serif 4 (voice) · DM Sans (substance) · IBM Plex Mono (metadata) ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=DM+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================================
+   THEME TOKENS — SIGNAL (editorial / intelligence-briefing)
+   Authored at a fixed 1920×1080 stage; all sizes in px.
+   Change these variables to retheme the whole deck.
+   =========================================================================== */
+:root{
+  /* dual surfaces */
+  --navy:#1C2644; --navy-alt:#232F55; --cream:#F0ECE3; --cream-alt:#E6E0D4;
+  /* text on navy */
+  --tx-warm:#E2DCD0; --tx-mut-d:#8A96A8; --tx-hint-d:#4E5A6E;
+  /* text on cream */
+  --ink:#1A2030; --tx-mut-l:#5A6270; --tx-hint-l:#9AA0A8;
+  /* single accent */
+  --gold:#C8A870;
+  /* hairlines */
+  --bd-d:#2E3D5C; --bd-l:#CAC4B4;
+
+  /* type families (serif=voice, sans=substance, mono=metadata) */
+  --serif:'Source Serif 4','Noto Serif SC',Georgia,serif;
+  --sans:'DM Sans','Noto Sans SC',system-ui,sans-serif;
+  --mono:'IBM Plex Mono','JetBrains Mono',monospace;
+
+  /* type scale (px @1920×1080) */
+  --t-display:150px; --t-h1:100px; --t-h2:58px; --t-h3:36px;
+  --t-lead:27px; --t-body:20px; --t-cap:16px; --t-label:14px;
+  --t-stat:104px; --t-quote:66px;
+
+  /* spacing */
+  --pad-x:140px; --pad-y:72px;
+
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --ease-sharp:cubic-bezier(0.77,0,0.175,1);
+  --stage-bg:#0d1120;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ===========================================================================
+   FIXED 16:9 STAGE — MANDATORY BASE (from viewport-base.css, verbatim)
+   =========================================================================== */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg,#000)}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg,#000)}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg,#fff)}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg,#fff)}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1}
+img,video,canvas,svg{max-width:100%;max-height:100%}
+.deck-controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:1000}
+@media print{
+  html,body{width:1920px;height:auto;overflow:visible;background:#fff}
+  .deck-viewport{position:static;overflow:visible;background:#fff}
+  .deck-stage{position:static;width:auto;height:auto;transform:none!important;background:none}
+  .slide{position:relative;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;width:1920px;height:1080px;break-after:page;page-break-after:always}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  .deck-controls{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}}
+
+/* ===========================================================================
+   SURFACES
+   =========================================================================== */
+.slide{font-family:var(--sans);color:var(--tx-warm)}
+.slide.dark{background:var(--navy);color:var(--tx-warm)}
+.slide.light{background:var(--cream);color:var(--ink)}
+/* 80px grid fingerprint — dark slides only */
+.slide.dark::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:80px 80px}
+
+/* pad wrapper for standard slides — top inset clears the chrome bar, bottom clears the foot */
+.pad{position:absolute;inset:130px var(--pad-x) 116px}
+
+/* ===========================================================================
+   TYPOGRAPHIC PRIMITIVES
+   =========================================================================== */
+.kicker{font-family:var(--mono);font-size:var(--t-label);font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+.rule-short{width:36px;height:2px;background:var(--gold);border:0}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
+.display{font-family:var(--serif);font-weight:700;font-size:var(--t-display);line-height:.96;letter-spacing:-.02em}
+h1,.h1{font-size:var(--t-h1);line-height:1.05}
+h2,.h2{font-size:var(--t-h2);line-height:1.12}
+h3,.h3{font-size:var(--t-h3);line-height:1.25;font-weight:600}
+/* THE SIGNAL MOMENT — italic gold serif emphasis inside headlines */
+h1 em,h2 em,h3 em,.display em,.eh em{font-style:italic;color:var(--gold);font-weight:inherit}
+.lead{font-size:var(--t-lead);line-height:1.55;color:var(--tx-mut-d);font-weight:400}
+.light .lead{color:var(--tx-mut-l)}
+.lead em,.body em{font-family:var(--serif);font-style:italic;color:var(--gold)}
+.body{font-size:var(--t-body);line-height:1.62}
+.cap{font-size:var(--t-cap);line-height:1.5;color:var(--tx-hint-d)}
+.light .cap{color:var(--tx-hint-l)}
+.mono{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase}
+
+/* stat numerals — always gold serif */
+.stat{font-family:var(--serif);font-weight:600;color:var(--gold);letter-spacing:-.02em;line-height:1}
+.stat-lg{font-size:var(--t-stat)}
+.stat-md{font-size:72px}
+.stat-sm{font-size:52px}
+
+/* em-dash gold mono bullets */
+ul.dash{list-style:none}
+ul.dash li{position:relative;padding-left:44px;margin-bottom:22px}
+ul.dash li::before{content:"—";position:absolute;left:0;top:0;font-family:var(--mono);color:var(--gold)}
+ul.dash li b{font-weight:600;color:var(--tx-warm);font-family:var(--serif)}
+.light ul.dash li b{color:var(--ink)}
+
+/* outlined gold tag */
+.tag{display:inline-block;border:1px solid var(--gold);color:var(--gold);
+  font-family:var(--mono);font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;
+  padding:7px 16px;border-radius:0}
+
+/* ===========================================================================
+   CHROME (top label + counter, bottom mirror) — standard slides only
+   =========================================================================== */
+.chrome,.foot{position:absolute;left:var(--pad-x);right:var(--pad-x);display:flex;
+  justify-content:space-between;align-items:center;font-family:var(--mono);
+  font-size:var(--t-label);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-mut-d)}
+.light .chrome,.light .foot{color:var(--tx-mut-l)}
+.chrome{top:52px;padding-bottom:18px;border-bottom:1px solid var(--bd-d)}
+.foot{bottom:44px;padding-top:18px;border-top:1px solid var(--bd-d)}
+.light .chrome{border-color:var(--bd-l)}.light .foot{border-color:var(--bd-l)}
+.chrome .g,.foot .g{color:var(--gold)}
+
+/* image frame — rectangular, hairline */
+.frame{border:1px solid var(--bd-d);background:var(--navy-alt);overflow:hidden}
+.light .frame{border-color:var(--bd-l);background:var(--cream-alt)}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* hairline divider */
+.hr{width:100%;height:1px;background:var(--bd-d);border:0}
+.light .hr{background:var(--bd-l)}
+.vr{width:1px;background:var(--bd-d);align-self:stretch}
+.light .vr{background:var(--bd-l)}
+
+/* ===========================================================================
+   REVEAL ANIMATIONS — fire on .slide.visible
+   =========================================================================== */
+.reveal{opacity:0;transform:translateY(28px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.slide.visible .reveal{opacity:1;transform:none}
+.slide.visible .reveal[data-d="1"]{transition-delay:.10s}
+.slide.visible .reveal[data-d="2"]{transition-delay:.20s}
+.slide.visible .reveal[data-d="3"]{transition-delay:.30s}
+.slide.visible .reveal[data-d="4"]{transition-delay:.40s}
+.slide.visible .reveal[data-d="5"]{transition-delay:.50s}
+.slide.visible .reveal[data-d="6"]{transition-delay:.60s}
+.slide.visible .reveal[data-d="7"]{transition-delay:.70s}
+.slide.visible .reveal[data-d="8"]{transition-delay:.80s}
+
+/* ===========================================================================
+   DECK CHROME (nav dots + counter) — outside the stage
+   =========================================================================== */
+.deck-controls{display:flex;align-items:center;gap:18px;font-family:var(--mono);
+  font-size:12px;letter-spacing:.14em;color:#8A96A8;background:rgba(13,17,32,.7);
+  padding:9px 16px;border:1px solid #2E3D5C;backdrop-filter:blur(6px)}
+.dots{display:flex;gap:8px}
+.dots i{width:7px;height:7px;border-radius:50%;background:#3a4767;cursor:pointer;transition:background .3s,transform .3s}
+.dots i.on{background:var(--gold);transform:scale(1.25)}
+.deck-controls .count b{color:#E2DCD0;font-weight:500}
+
+/* edit affordance */
+.edit-hotzone{position:fixed;top:0;left:0;width:80px;height:80px;z-index:10000;cursor:pointer}
+.edit-toggle{position:fixed;top:16px;left:16px;z-index:10001;opacity:0;pointer-events:none;
+  transition:opacity .3s;background:rgba(13,17,32,.85);color:#E2DCD0;border:1px solid #2E3D5C;
+  font-size:18px;width:44px;height:44px;cursor:pointer}
+.edit-toggle.show,.edit-toggle.active{opacity:1;pointer-events:auto}
+.edit-toggle.active{border-color:var(--gold);color:var(--gold)}
+[contenteditable="true"]{outline:1px dashed rgba(200,168,112,.6);outline-offset:4px;cursor:text}
+
+/* ===========================================================================
+   SLIDE-SPECIFIC LAYOUTS
+   =========================================================================== */
+/* cover */
+.cover .kicker{position:absolute;top:200px;left:var(--pad-x)}
+.cover h1.big{position:absolute;top:250px;left:var(--pad-x);width:1480px;font-size:104px;line-height:1.02;color:var(--tx-warm)}
+.cover .rule-short{position:absolute;top:600px;left:var(--pad-x);width:120px;height:2px}
+.cover .lead{position:absolute;top:632px;left:var(--pad-x);width:1180px}
+.cover .figs{position:absolute;left:var(--pad-x);bottom:150px;display:flex;gap:88px}
+.cover .mast{position:absolute;top:52px;left:var(--pad-x);right:var(--pad-x);display:flex;
+  justify-content:space-between;padding-bottom:22px;border-bottom:1px solid var(--bd-d);
+  font-family:var(--mono);font-size:var(--t-label);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-mut-d)}
+.cover .foot2{position:absolute;bottom:52px;left:var(--pad-x);right:var(--pad-x);display:flex;
+  justify-content:space-between;padding-top:22px;border-top:1px solid var(--bd-d);
+  font-family:var(--mono);font-size:var(--t-label);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-mut-d)}
+.fig .stat{display:block}.fig .fl{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--tx-mut-d);margin-top:12px}
+.cover .mast .g,.cover .foot2 .g{color:var(--gold)}
+
+/* section title helper */
+.head{display:flex;flex-direction:column;gap:20px}
+.head .kicker{margin-bottom:4px}
+
+/* three-column conditions */
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:8px}
+.cols3 .col{padding:0 46px}
+.cols3 .col:first-child{padding-left:0}
+.cols3 .col:last-child{padding-right:0}
+.cols3 .col+.col{border-left:1px solid var(--bd-d)}
+.light .cols3 .col+.col{border-left:1px solid var(--bd-l)}
+.cols3 .num{font-family:var(--mono);color:var(--gold);font-size:var(--t-label);letter-spacing:.16em;margin-bottom:20px}
+.cols3 h3{margin-bottom:16px}
+.cols3 .body{color:var(--tx-mut-d)}.light .cols3 .body{color:var(--tx-mut-l)}
+.cols3 .kpi{margin-top:26px;font-family:var(--serif);color:var(--gold);font-weight:600;font-size:40px;letter-spacing:-.02em}
+.cols3 .kpi small{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-hint-d);margin-top:8px;font-weight:400}
+.light .cols3 .kpi small{color:var(--tx-hint-l)}
+
+/* generic stat row */
+.statrow{display:flex;gap:0;margin-top:10px}
+.statrow .s{flex:1;padding:0 40px;border-left:1px solid var(--bd-d)}
+.light .statrow .s{border-left:1px solid var(--bd-l)}
+.statrow .s:first-child{padding-left:0;border-left:0}
+.statrow .s .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-hint-d);margin-top:16px}
+.light .statrow .s .lbl{color:var(--tx-hint-l)}
+
+/* comparison table */
+.ctable{width:100%;border-collapse:collapse;margin-top:8px}
+.ctable th,.ctable td{text-align:left;padding:22px 28px;border-bottom:1px solid var(--bd-l);vertical-align:middle}
+.ctable thead th{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-mut-l);border-bottom:1px solid var(--ink)}
+.ctable thead th.cofe{color:var(--gold)}
+.ctable td.factor{font-family:var(--serif);font-weight:600;font-size:23px;color:var(--ink);width:26%}
+.ctable td.cofe{font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;width:40%}
+.ctable td.cofe b{color:var(--gold);font-weight:600}
+.ctable td.trad{font-size:19px;color:var(--tx-mut-l);width:34%}
+.ctable tbody tr:last-child td{border-bottom:0}
+.ctable .col-cofe{background:rgba(200,168,112,.06)}
+
+/* faq grid */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:0 80px;margin-top:6px}
+.faq .q{padding:26px 0;border-top:1px solid var(--bd-l)}
+.faq .q h3{font-size:26px;margin-bottom:12px;color:var(--ink)}
+.faq .q .body{color:var(--tx-mut-l);font-size:18px;line-height:1.55}
+.faq .q .body b{color:var(--gold);font-weight:600;font-family:var(--serif)}
+
+/* fullbleed image slide */
+.bleed{position:absolute;inset:0}
+.bleed img{width:100%;height:100%;object-fit:cover}
+.bleed .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,20,36,.94) 0%,rgba(15,20,36,.8) 42%,rgba(15,20,36,.28) 100%)}
+.bleed .scrim2{position:absolute;inset:0;background:linear-gradient(0deg,rgba(15,20,36,.85) 0%,transparent 45%)}
+
+/* two-col with image */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:80px;height:100%;align-items:center}
+.split.imgright{grid-template-columns:1.05fr .95fr}
+
+/* chapter divider — flex-centered so any headline length flows without overlap */
+.chapter{display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad-x)}
+.chapter .cnum{font-family:var(--mono);font-size:var(--t-label);letter-spacing:.2em;
+  color:var(--gold);text-transform:uppercase}
+.chapter .rule-short{width:120px;margin:26px 0 34px}
+.chapter h1{width:1420px;max-width:100%;font-size:92px;line-height:1.05;color:var(--tx-warm);margin-bottom:42px}
+.chapter .lead{max-width:1040px}
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ======================= SLIDE 01 — COVER (navy, chromeless) ======================= -->
+<section class="slide dark cover active">
+  <div class="mast reveal"><span>COFE+ <span class="g">/</span> Shanghai Hi-Dolphin Robot Technology</span><span>Airport Case Study <span class="g">·</span> 2026</span></div>
+  <div class="kicker reveal" data-d="1">The infrastructure case</div>
+  <h1 class="big reveal" data-d="2">Why airports are the <em>perfect location</em> for robot coffee kiosks</h1>
+  <hr class="rule-short reveal" data-d="3">
+  <p class="lead reveal" data-d="3">Round-the-clock demand, scarce floor space, and hard-to-fill overnight shifts — the three conditions that strain a traditional café are exactly the conditions a COFE+ robot barista is built for.</p>
+  <div class="figs reveal" data-d="4">
+    <div class="fig"><span class="stat stat-sm">21+</span><span class="fl">Int'l airports</span></div>
+    <div class="fig"><span class="stat stat-sm">~54s</span><span class="fl">Per fresh cup</span></div>
+    <div class="fig"><span class="stat stat-sm">24/7</span><span class="fl">Unmanned</span></div>
+    <div class="fig"><span class="stat stat-sm">&lt;2.35m²</span><span class="fl">Footprint</span></div>
+  </div>
+  <div class="foot2 reveal" data-d="5"><span>Denver · Shanghai Hongqiao · Chișinău · Kuala Lumpur · Brussels</span><span>01 / 13</span></div>
+</section>
+
+<!-- ======================= SLIDE 02 — WHAT IS IT (cream, split w/ render) ======================= -->
+<section class="slide light">
+  <div class="chrome"><span>Definition <span class="g">·</span> The robot coffee kiosk</span><span>02 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="split imgright">
+      <div>
+        <div class="kicker reveal">What is a robot coffee kiosk?</div>
+        <h2 class="reveal" data-d="1" style="margin-top:22px">A compact, self-operating café that needs <em>no barista</em> — and no back room.</h2>
+        <p class="lead reveal" data-d="2" style="margin-top:28px;max-width:640px">The COFE+ kiosk takes the order, grinds fresh beans for every cup, brews espresso, latte, tea and chocolate, finishes with robotic-arm latte art, and serves the drink — start to finish, with no human help.</p>
+        <div class="statrow reveal" data-d="3" style="margin-top:44px">
+          <div class="s"><span class="stat stat-sm">2018</span><div class="lbl">Founded, Shanghai</div></div>
+          <div class="s"><span class="stat stat-sm">70+</span><div class="lbl">Countries</div></div>
+          <div class="s"><span class="stat stat-sm">120+</span><div class="lbl">Patents</div></div>
+          <div class="s"><span class="stat stat-sm">200M+</span><div class="lbl">Cups sold</div></div>
+        </div>
+      </div>
+      <div class="frame reveal" data-d="2" style="height:640px">
+        <img src="assets/cofe-kiosk-1.webp" alt="COFE+ robot café kiosk" style="object-fit:contain;background:#fff">
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Shanghai Hi-Dolphin Robot Technology Co., Ltd.</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 03 — WHY AIRPORTS: 3 CONDITIONS (navy) ======================= -->
+<section class="slide dark">
+  <div class="chrome"><span>The argument <span class="g">·</span> Why airports suit robot kiosks</span><span>03 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="head">
+      <div class="kicker reveal">Three conditions, one answer</div>
+      <h2 class="reveal" data-d="1" style="max-width:1400px">Airports combine the three things a traditional café <em>struggles</em> with.</h2>
+    </div>
+    <div class="cols3" style="margin-top:64px">
+      <div class="col reveal" data-d="2">
+        <div class="num">01 — Demand</div>
+        <h3>The demand never stops</h3>
+        <p class="body">Flights depart and arrive at every hour, so a coffee point that closes at night leaves travelers unserved. A COFE+ kiosk runs 24/7 unmanned.</p>
+        <div class="kpi">&lt;30 min<small>Daily maintenance</small></div>
+      </div>
+      <div class="col reveal" data-d="3">
+        <div class="num">02 — Space</div>
+        <h3>Space is at a premium</h3>
+        <p class="body">Airport retail rent is among the highest anywhere. The kiosk occupies under 2.35 m²; bar and counter formats need only ~2 m².</p>
+        <div class="kpi">30–100 m²<small>A traditional shop needs</small></div>
+      </div>
+      <div class="col reveal" data-d="4">
+        <div class="num">03 — Staffing</div>
+        <h3>Staffing is hard and costly</h3>
+        <p class="body">Overnight barista shifts are difficult to fill and expensive to run. A robot kiosk removes the labor bottleneck entirely.</p>
+        <div class="kpi">Up to 90%<small>Lower labor &amp; operating cost</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>24/7 demand · scarce floor space · chronic staffing gaps</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 04 — SPEED & THROUGHPUT (navy) ======================= -->
+<section class="slide dark">
+  <div class="chrome"><span>Performance <span class="g">·</span> Speed in a high-traffic terminal</span><span>04 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="split" style="align-items:center">
+      <div>
+        <div class="kicker reveal">How fast is a robot barista?</div>
+        <div class="reveal" data-d="1" style="display:flex;align-items:baseline;gap:20px;margin-top:20px">
+          <span class="stat" style="font-size:200px">~54</span>
+          <span class="h2" style="color:var(--tx-warm)">seconds<br>per fresh cup</span>
+        </div>
+        <p class="lead reveal" data-d="2" style="margin-top:24px;max-width:660px">In a <em>May 2026</em> human-vs-machine competition, the 7th-generation COFE+ averaged 54 seconds per cup against human baristas' 72 — the first time a coffee robot comprehensively beat professionals on speed and accuracy.</p>
+      </div>
+      <div class="reveal" data-d="3">
+        <!-- competition bars -->
+        <div class="mono" style="color:var(--gold);margin-bottom:28px">May 2026 · avg seconds / cup</div>
+        <div style="margin-bottom:30px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+            <span class="h3" style="color:var(--tx-warm)">COFE+ 7th-gen</span><span class="stat stat-sm">54s</span></div>
+          <div style="height:26px;background:var(--gold);width:75%"></div>
+        </div>
+        <div style="margin-bottom:44px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+            <span class="h3" style="color:var(--tx-mut-d)">Human baristas</span><span class="h3" style="color:var(--tx-mut-d)">72s</span></div>
+          <div style="height:26px;background:var(--tx-hint-d);width:100%"></div>
+        </div>
+        <hr class="hr">
+        <div class="statrow" style="margin-top:34px">
+          <div class="s"><span class="stat stat-sm">1,000</span><div class="lbl">Cups / day</div></div>
+          <div class="s"><span class="stat stat-sm">5</span><div class="lbl">Cups at once</div></div>
+          <div class="s"><span class="stat stat-sm">300</span><div class="lbl">Cups / refill</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Throughput built for the rush after every wave of arrivals</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 05 — CHAPTER DIVIDER (navy, chromeless) ======================= -->
+<section class="slide dark chapter">
+  <div class="cnum reveal">Chapter 02 — In service</div>
+  <hr class="rule-short reveal" data-d="1">
+  <h1 class="reveal" data-d="2">Robot coffee kiosks already <em>serving travelers</em> in real terminals.</h1>
+  <p class="lead reveal" data-d="3">COFE+ is deployed in more than 21 international airports across five continents. Three deployments show how the model performs where it matters most.</p>
+</section>
+
+<!-- ======================= SLIDE 06 — DEPLOYMENT OVERVIEW (fullbleed image) ======================= -->
+<section class="slide dark">
+  <div class="bleed">
+    <img src="assets/loc-9.webp" alt="Travelers queueing at a COFE+ robot coffee kiosk">
+    <div class="scrim"></div>
+    <div class="scrim2"></div>
+  </div>
+  <div class="pad" style="display:flex;flex-direction:column;justify-content:center">
+    <div class="kicker reveal">Global footprint</div>
+    <h2 class="reveal" data-d="1" style="margin-top:20px;max-width:1040px">In service on <em>five continents</em>, from Denver to Kuala Lumpur.</h2>
+    <div class="figs reveal" data-d="2" style="display:flex;gap:80px;margin-top:44px">
+      <div class="fig"><span class="stat stat-md">21+</span><div class="fl" style="font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-mut-d);margin-top:12px">International airports</div></div>
+      <div class="fig"><span class="stat stat-md">5</span><div class="fl" style="font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-mut-d);margin-top:12px">Continents</div></div>
+      <div class="fig"><span class="stat stat-md">60,000+</span><div class="fl" style="font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-mut-d);margin-top:12px">Cumulative op. hours</div></div>
+    </div>
+    <p class="lead reveal" data-d="3" style="margin-top:46px;max-width:1020px">Also in service at Kuala Lumpur International, Brussels Airport, Hangzhou Xiaoshan, and Kunming Changshui, among others.</p>
+  </div>
+  <div class="foot" style="border-color:rgba(255,255,255,.12)"><span>A real COFE+ robot kiosk in service</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 07 — CASE STUDIES (cream, 3 cols) ======================= -->
+<section class="slide light">
+  <div class="chrome"><span>Case studies <span class="g">·</span> Three terminals</span><span>07 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="head">
+      <div class="kicker reveal">Airport deployments in the field</div>
+      <h2 class="reveal" data-d="1">How the model performs in <em>real terminals</em>.</h2>
+    </div>
+    <div class="cols3" style="margin-top:56px">
+      <div class="col reveal" data-d="2">
+        <div class="num">USA</div>
+        <h3>Denver International</h3>
+        <p class="body" style="color:var(--tx-mut-l)">The 4th-busiest U.S. airport, handling 60M+ annual passengers. Its COFE+ kiosk serves travelers 24/7 — including the overnight hours when staffed shops are closed.</p>
+        <div class="kpi">60M+<small>Annual passengers</small></div>
+      </div>
+      <div class="col reveal" data-d="3">
+        <div class="num">Moldova</div>
+        <h3>Chișinău International</h3>
+        <p class="body" style="color:var(--tx-mut-l)">A COFE+ kiosk averages 200+ cups per day, and the operator reached full return on investment within four months of opening.</p>
+        <div class="kpi">4 months<small>To full payback (ROI)</small></div>
+      </div>
+      <div class="col reveal" data-d="4">
+        <div class="num">China</div>
+        <h3>Shanghai Hongqiao</h3>
+        <p class="body" style="color:var(--tx-mut-l)">A major gateway hub with 40M+ annual passengers, where a COFE+ kiosk was deployed in March 2025 and runs 24/7 unattended.</p>
+        <div class="kpi">40M+<small>Annual passengers</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Deployed in 21+ international airports worldwide</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 08 — QUALITY / VARIETY (navy, latte image) ======================= -->
+<section class="slide dark">
+  <div class="chrome"><span>Quality <span class="g">·</span> Does automation mean worse coffee?</span><span>08 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="split imgright" style="align-items:center">
+      <div>
+        <div class="kicker reveal">Does automated coffee mean lower quality?</div>
+        <h2 class="reveal" data-d="1" style="margin-top:20px">No — automation is what makes quality <em>possible at 2 AM</em>.</h2>
+        <p class="lead reveal" data-d="2" style="margin-top:26px;max-width:640px">The kiosk grinds fresh beans for every cup and uses smart algorithms that replicate champion-barista recipes — so the 500th cup of the day tastes like the first.</p>
+        <ul class="dash reveal" data-d="3" style="margin-top:34px;font-size:20px;color:var(--tx-mut-d)">
+          <li><b>50+ beverages</b> with 47 topping options — thousands of unique combinations.</li>
+          <li>A robotic arm pours <b>latte art</b>, and can 3D-print an image or text onto the foam.</li>
+        </ul>
+      </div>
+      <div class="frame reveal" data-d="2" style="height:660px">
+        <img src="assets/latte-art-tuptian1.webp" alt="COFE+ latte art and 3D-printed foam designs" style="object-fit:contain;background:#fff">
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Consistency is the point of automation, not its casualty</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 09 — CREDENTIALS & PRICE (cream) ======================= -->
+<section class="slide light">
+  <div class="chrome"><span>Credentials <span class="g">·</span> Certification &amp; price</span><span>09 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="head">
+      <div class="kicker reveal">The credentials airport operators require</div>
+      <h2 class="reveal" data-d="1" style="max-width:1400px">Food-safety certified worldwide — at a <em>price that surprises</em>.</h2>
+    </div>
+    <div class="split" style="margin-top:56px;align-items:start;height:auto">
+      <div class="reveal" data-d="2">
+        <h3 style="color:var(--ink);margin-bottom:24px">World's first coffee robot certified simultaneously by:</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:14px">
+          <span class="tag">U.S. FDA</span><span class="tag">U.S. FCC</span><span class="tag">EU CE</span>
+          <span class="tag">UK UKCA</span><span class="tag">United Nations</span>
+        </div>
+        <p class="body" style="margin-top:28px;color:var(--tx-mut-l);max-width:640px">With 50+ certifications from 18+ developed countries — the kind of food-safety credentials airport operators require before a tenant opens.</p>
+      </div>
+      <div class="reveal" data-d="3">
+        <div class="vr" style="display:none"></div>
+        <div style="border-left:1px solid var(--bd-l);padding-left:60px">
+          <div class="kicker" style="color:var(--gold)">Independently notable at the price</div>
+          <div style="display:flex;align-items:baseline;gap:16px;margin-top:20px">
+            <span class="stat" style="font-size:120px">~10</span>
+            <span class="h3" style="color:var(--ink)">RMB / cup<br><span style="color:var(--tx-mut-l);font-family:var(--sans);font-weight:400;font-size:20px">≈ $1.40 USD, at high quality</span></span>
+          </div>
+          <p class="body" style="margin-top:26px;color:var(--tx-mut-l);max-width:560px">Yahoo Finance reported in 2024–2026 that a COFE+ cup could be brewed for as low as roughly 10 RMB — high quality at a fraction of specialty-shop cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>50+ certifications · 18+ developed countries</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 10 — COMPARISON TABLE (cream, dense) ======================= -->
+<section class="slide light">
+  <div class="chrome"><span>Comparison <span class="g">·</span> Robot kiosk vs traditional café</span><span>10 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="head" style="margin-bottom:30px">
+      <div class="kicker reveal">Robot coffee kiosk vs. traditional airport café</div>
+      <h2 class="reveal" data-d="1">The same job, at a <em>fraction of the cost</em>.</h2>
+    </div>
+    <table class="ctable reveal" data-d="2">
+      <thead><tr><th>Factor</th><th class="cofe">COFE+ robot coffee kiosk</th><th>Traditional airport café</th></tr></thead>
+      <tbody>
+        <tr><td class="factor">Hours</td><td class="cofe col-cofe"><b>24/7</b> unmanned</td><td class="trad">Limited by staff shifts</td></tr>
+        <tr><td class="factor">Footprint</td><td class="cofe col-cofe">Under <b>2.35 m²</b></td><td class="trad">30–100 m²</td></tr>
+        <tr><td class="factor">Staff per shift</td><td class="cofe col-cofe"><b>0</b> — under 30 min daily maintenance</td><td class="trad">2–5</td></tr>
+        <tr><td class="factor">Speed per cup</td><td class="cofe col-cofe"><b>~54 seconds</b></td><td class="trad">~72 seconds (barista, May 2026 test)</td></tr>
+        <tr><td class="factor">Labor / operating cost</td><td class="cofe col-cofe">Up to <b>90% lower</b></td><td class="trad">Baseline</td></tr>
+        <tr><td class="factor">Daily output</td><td class="cofe col-cofe">Up to <b>1,000 cups</b></td><td class="trad">Varies with staffing</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="foot"><span>Energy use up to 80% lower than a traditional café</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 11 — RELIABILITY (navy) ======================= -->
+<section class="slide dark">
+  <div class="chrome"><span>Reliability <span class="g">·</span> Built for continuous airport use</span><span>11 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="head">
+      <div class="kicker reveal">How reliable is a robot kiosk for 24/7 service?</div>
+      <h2 class="reveal" data-d="1" style="max-width:1420px">A coffee point that keeps serving <em>through the night</em> — without on-site staff.</h2>
+    </div>
+    <div class="statrow reveal" data-d="2" style="margin-top:56px">
+      <div class="s"><span class="stat stat-md">60,000+</span><div class="lbl">Cumulative operating hours</div></div>
+      <div class="s"><span class="stat stat-md">2,000+</span><div class="lbl">Days — longest single machine (6+ yrs)</div></div>
+      <div class="s"><span class="stat stat-md">500k+</span><div class="lbl">Cups — 6th-gen 10-year design life</div></div>
+      <div class="s"><span class="stat stat-md">75%+</span><div class="lbl">Daily sales vs. human-run cafés</div></div>
+    </div>
+    <hr class="hr reveal" data-d="3" style="margin-top:56px">
+    <div class="reveal" data-d="3" style="margin-top:36px;max-width:1420px">
+      <h3 style="color:var(--tx-warm);margin-bottom:16px">The AIoT "Smart Store Brain"</h3>
+      <p class="lead">Tracks sales and inventory in real time, runs automated cleaning cycles, and sends <em>predictive maintenance alerts</em> to a smartphone — so reliability is monitored, not assumed.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Average daily sales per machine surpass 75% of human-run cafés</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 12 — FAQ (cream, dense grid) ======================= -->
+<section class="slide light">
+  <div class="chrome"><span>FAQ <span class="g">·</span> The questions operators ask</span><span>12 <span class="g">/</span> 13</span></div>
+  <div class="pad">
+    <div class="head" style="margin-bottom:18px">
+      <div class="kicker reveal">Frequently asked</div>
+      <h2 class="reveal" data-d="1">What airport operators <em>ask first</em>.</h2>
+    </div>
+    <div class="faq reveal" data-d="2">
+      <div class="q"><h3>How long does it take to make a coffee?</h3><p class="body">About <b>54 seconds</b> (50–55s avg). In a May 2026 competition it averaged 54s per cup vs. human baristas' 72s.</p></div>
+      <div class="q"><h3>How much airport space does it need?</h3><p class="body">Under <b>2.35 m²</b>; bar and counter formats need ~2 m² — far less than the 30–100 m² a specialty shop requires.</p></div>
+      <div class="q"><h3>Can it run overnight without staff?</h3><p class="body">Yes — <b>24/7 unmanned</b> with under 30 min of daily maintenance, exactly how Denver International serves closed hours.</p></div>
+      <div class="q"><h3>Which airports already have COFE+?</h3><p class="body">More than <b>21 international airports</b>, including Denver, Shanghai Hongqiao, Chișinău, Kuala Lumpur and Brussels.</p></div>
+      <div class="q"><h3>Is it profitable for an operator?</h3><p class="body">It can be quickly: Chișinău averages <b>200+ cups/day</b> and reached full ROI within 4 months.</p></div>
+      <div class="q"><h3>How many drinks can it make?</h3><p class="body">Up to <b>1,000 cups/day</b>, 5 at once — 50+ beverages with 47 toppings for thousands of combinations.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Shanghai Hi-Dolphin Robot Technology Co., Ltd.</span><span class="g">COFE+</span></div>
+</section>
+
+<!-- ======================= SLIDE 13 — CLOSING (navy, chromeless) ======================= -->
+<section class="slide dark chapter">
+  <div class="cnum reveal">The case, in one line</div>
+  <hr class="rule-short reveal" data-d="1">
+  <h1 class="reveal" data-d="2">A fresh cup in ~54 seconds, 24/7, in under 2.35 m² — <em>the terminal barista that never clocks out</em>.</h1>
+  <p class="lead reveal" data-d="3">Deployed in 21+ international airports on five continents. Where demand never stops and space is scarce, the robot coffee kiosk isn't a novelty — it's the fit.</p>
+  <div class="foot2 reveal" data-d="4" style="position:absolute;bottom:52px;left:var(--pad-x);right:var(--pad-x);display:flex;justify-content:space-between;padding-top:22px;border-top:1px solid var(--bd-d);font-family:var(--mono);font-size:var(--t-label);letter-spacing:.16em;text-transform:uppercase;color:var(--tx-mut-d)">
+    <span>COFE+ <span style="color:var(--gold)">/</span> Shanghai Hi-Dolphin Robot Technology</span><span>13 / 13</span>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- deck chrome outside stage -->
+<div class="deck-controls" id="deckControls" aria-hidden="true">
+  <div class="dots" id="dots"></div>
+  <div class="count"><b id="cur">01</b> / <span id="tot">13</span></div>
+</div>
+
+<!-- edit affordance -->
+<div class="edit-hotzone" id="editHotzone" title="Edit mode (E)"></div>
+<button class="edit-toggle" id="editToggle" title="Edit mode (E)">✏️</button>
+
+<script>
+/* ===========================================================================
+   SLIDE CONTROLLER — fixed 16:9 stage, keyboard/touch/wheel nav, inline edit
+   =========================================================================== */
+class Deck{
+  constructor(){
+    this.slides=[...document.querySelectorAll('.slide')];
+    this.stage=document.getElementById('deckStage');
+    this.i=0;this.animating=false;
+    this.buildDots();
+    this.scale();addEventListener('resize',()=>this.scale());
+    this.keys();this.touch();this.wheel();
+    this.show(0);
+  }
+  scale(){const f=Math.min(innerWidth/1920,innerHeight/1080);
+    const x=(innerWidth-1920*f)/2,y=(innerHeight-1080*f)/2;
+    this.stage.style.transform=`translate(${x}px,${y}px) scale(${f})`;}
+  buildDots(){const d=document.getElementById('dots');
+    this.slides.forEach((_,k)=>{const s=document.createElement('i');
+      s.onclick=()=>this.show(k);d.appendChild(s);});
+    document.getElementById('tot').textContent=String(this.slides.length).padStart(2,'0');}
+  show(n){
+    this.i=Math.max(0,Math.min(n,this.slides.length-1));
+    this.slides.forEach((s,k)=>{s.classList.toggle('active',k===this.i);s.classList.toggle('visible',k===this.i);});
+    [...document.getElementById('dots').children].forEach((d,k)=>d.classList.toggle('on',k===this.i));
+    document.getElementById('cur').textContent=String(this.i+1).padStart(2,'0');
+  }
+  next(){this.show(this.i+1);}prev(){this.show(this.i-1);}
+  keys(){addEventListener('keydown',e=>{
+    if(e.target.getAttribute&&e.target.getAttribute('contenteditable')==='true')return;
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.next();}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.prev();}
+    else if(e.key==='Home')this.show(0);else if(e.key==='End')this.show(this.slides.length-1);
+  });}
+  touch(){let x0=null;addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+    addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>60){dx<0?this.next():this.prev();}x0=null;},{passive:true});}
+  wheel(){let lock=false;addEventListener('wheel',e=>{if(lock)return;
+    if(Math.abs(e.deltaY)<24&&Math.abs(e.deltaX)<24)return;lock=true;
+    (e.deltaY>0||e.deltaX>0)?this.next():this.prev();setTimeout(()=>lock=false,700);},{passive:true});}
+}
+const deck=new Deck();
+
+/* ---- inline editing (hover hotzone + E key + localStorage) ---- */
+const editor={isActive:false,
+  toggle(){this.isActive=!this.isActive;
+    document.querySelectorAll('.slide h1,.slide h2,.slide h3,.slide p,.slide li,.slide span.fl,.slide .lbl,.ctable td,.faq h3').forEach(el=>{
+      el.setAttribute('contenteditable',this.isActive);});
+    const b=document.getElementById('editToggle');b.classList.toggle('active',this.isActive);
+    if(!this.isActive)this.save();
+  },
+  save(){try{const m={};document.querySelectorAll('[contenteditable]').forEach((el,k)=>m[k]=el.innerHTML);
+    localStorage.setItem('cofe-deck',JSON.stringify(m));}catch(e){}},
+  load(){try{const m=JSON.parse(localStorage.getItem('cofe-deck')||'null');if(!m)return;
+    /* only reload if structure matches — non-critical */}catch(e){}}
+};
+const hot=document.getElementById('editHotzone'),tog=document.getElementById('editToggle');let ht=null;
+hot.addEventListener('mouseenter',()=>{clearTimeout(ht);tog.classList.add('show');});
+hot.addEventListener('mouseleave',()=>{ht=setTimeout(()=>{if(!editor.isActive)tog.classList.remove('show');},400);});
+tog.addEventListener('mouseenter',()=>clearTimeout(ht));
+tog.addEventListener('mouseleave',()=>{ht=setTimeout(()=>{if(!editor.isActive)tog.classList.remove('show');},400);});
+tog.addEventListener('click',()=>editor.toggle());
+hot.addEventListener('click',()=>editor.toggle());
+addEventListener('keydown',e=>{if((e.key==='e'||e.key==='E')&&!(e.target.getAttribute&&e.target.getAttribute('contenteditable')==='true'))editor.toggle();});
+</script>
+</body>
+</html>
