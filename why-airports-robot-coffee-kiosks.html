@@ -23,8 +23,8 @@
   --tx-warm:#E2DCD0; --tx-mut-d:#8A96A8; --tx-hint-d:#4E5A6E;
   /* text on cream */
   --ink:#1A2030; --tx-mut-l:#5A6270; --tx-hint-l:#9AA0A8;
-  /* single accent */
-  --gold:#C8A870;
+  /* single accent — COFE+ brand cyan */
+  --gold:#00C8C8;
   /* hairlines */
   --bd-d:#2E3D5C; --bd-l:#CAC4B4;
 
@@ -73,7 +73,8 @@ img,video,canvas,svg{max-width:100%;max-height:100%}
    =========================================================================== */
 .slide{font-family:var(--sans);color:var(--tx-warm)}
 .slide.dark{background:var(--navy);color:var(--tx-warm)}
-.slide.light{background:var(--cream);color:var(--ink)}
+/* on cream, deepen the brand cyan so accent text stays readable */
+.slide.light{background:var(--cream);color:var(--ink);--gold:#009999}
 /* 80px grid fingerprint — dark slides only */
 .slide.dark::before{content:"";position:absolute;inset:0;pointer-events:none;
   background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
@@ -94,8 +95,11 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
 h1,.h1{font-size:var(--t-h1);line-height:1.05}
 h2,.h2{font-size:var(--t-h2);line-height:1.12}
 h3,.h3{font-size:var(--t-h3);line-height:1.25;font-weight:600}
-/* THE SIGNAL MOMENT — italic gold serif emphasis inside headlines */
+/* THE SIGNAL MOMENT — italic brand-cyan serif emphasis inside headlines */
 h1 em,h2 em,h3 em,.display em,.eh em{font-style:italic;color:var(--gold);font-weight:inherit}
+/* white borderline on big cyan highlights so they read clearly on navy */
+.slide.dark h1 em,.slide.dark h2 em,.slide.dark .display em,.slide.dark .stat{
+  -webkit-text-stroke:2px rgba(255,255,255,.85);paint-order:stroke fill}
 .lead{font-size:var(--t-lead);line-height:1.55;color:var(--tx-mut-d);font-weight:400}
 .light .lead{color:var(--tx-mut-l)}
 .lead em,.body em{font-family:var(--serif);font-style:italic;color:var(--gold)}
