@@ -2,7 +2,10 @@
 # (github.com/user-attachments is unreachable from the dev sandbox) and
 # commits them into assets/. Removed once the photos are in the repo.
 name: Fetch airport photos
-on: workflow_dispatch
+on:
+  push:
+    branches: [claude/skill-frontend-slides-install-fk3jg7]
+    paths: ['.github/workflows/fetch-airport-photos.yml']
 permissions:
   contents: write
 jobs:
