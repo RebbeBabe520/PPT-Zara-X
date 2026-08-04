@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COFE+ Airport Robot-Café — The Investment Case in Infographics</title>
+
+<!-- Fonts: Source Serif 4 (voice) · DM Sans (substance) · IBM Plex Mono (metadata) — matches the deck -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!--
+  DATA-VIZ NOTE
+  Committed single visual world: brand navy + cyan (reads as one system with the deck).
+  Categorical pair validated on the navy surface #1C2644 (dataviz validator, --mode dark):
+    COFE+  #12A6A6   ·   Traditional-café baseline  #D95926
+    → ALL CHECKS PASS · worst adjacent CVD ΔE 15.9 · normal-vision ΔE 27.8 · contrast ≥3:1
+  Bright brand cyan #00C8C8 is used for headings/kickers/hero numbers (accent), never as a plotted mark.
+-->
+<style>
+:root{
+  color-scheme:dark;
+  /* surfaces */
+  --navy:#1C2644; --navy-2:#212C50; --navy-3:#26315A;
+  /* ink */
+  --tx:#E7E1D6; --tx-2:#95A0B2; --tx-3:#5A6684;
+  /* accent + chart series */
+  --accent:#00C8C8;               /* bright brand cyan — accents only */
+  --cofe:#12A6A6;                 /* chart series: COFE+ (validated) */
+  --cofe-soft:rgba(18,166,166,.16);
+  --trad:#D95926;                 /* chart series: traditional baseline (validated) */
+  --trad-soft:rgba(217,89,38,.16);
+  /* structure */
+  --bd:#2E3D5C; --bd-soft:rgba(255,255,255,.07); --grid:rgba(255,255,255,.06);
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--tx);font-family:var(--sans);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:80px 80px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+
+/* ---- type ---- */
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--serif);font-weight:700;font-size:64px;line-height:1.04;letter-spacing:-.02em;color:#F1ECE2}
+h2{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.1;letter-spacing:-.01em;color:#F1ECE2}
+h2 em,h1 em{font-style:italic;color:var(--accent)}
+.lead{font-size:20px;color:var(--tx-2);max-width:60ch}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--tx-3)}
+.hr{height:1px;background:var(--bd);border:0}
+
+/* ---- masthead ---- */
+header{padding:110px 0 70px;border-bottom:1px solid var(--bd)}
+header .mast{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--tx-3);padding-bottom:56px}
+header .mast .g{color:var(--accent)}
+header h1{margin:22px 0 28px;max-width:20ch}
+header .figs{display:flex;gap:56px;flex-wrap:wrap;margin-top:52px}
+header .fig b{font-family:var(--serif);font-weight:600;font-size:46px;color:var(--accent);letter-spacing:-.02em;display:block;line-height:1}
+header .fig span{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-3);margin-top:10px;display:block}
+
+/* ---- section scaffold ---- */
+section{padding:78px 0;border-bottom:1px solid var(--bd)}
+.shead{max-width:70ch;margin-bottom:44px}
+.shead h2{margin:16px 0 18px}
+.snum{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;color:var(--tx-3)}
+
+/* ---- stat tiles ---- */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--bd)}
+.tiles.three{grid-template-columns:repeat(3,1fr)}
+.tile{padding:30px 30px 30px 0;border-right:1px solid var(--bd)}
+.tile:last-child{border-right:0}
+.tile b{font-family:var(--serif);font-weight:600;font-size:52px;color:var(--accent);letter-spacing:-.02em;line-height:.95;display:block}
+.tile b .u{font-family:var(--serif);font-size:26px;color:var(--tx-2);display:inline;text-transform:none;margin:0;letter-spacing:0}
+.tile span{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);margin-top:14px;display:block;line-height:1.5}
+
+/* ---- generic figure ---- */
+figure{margin:0}
+figcaption{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);margin-top:20px}
+.legend{display:flex;gap:24px;align-items:center;margin-bottom:22px;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-2)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:9px;vertical-align:-1px}
+.swatch-cofe{background:var(--cofe)} .swatch-trad{background:var(--trad)}
+
+/* ---- horizontal "fraction of baseline" bars ---- */
+.barrow{margin-bottom:26px}
+.barrow .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.barrow .name{font-family:var(--serif);font-size:21px;color:var(--tx)}
+.barrow .val{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--tx-2)}
+.barrow .val b{color:var(--accent);font-weight:600}
+.track{position:relative;height:30px;background:var(--trad-soft);border:1px solid rgba(217,89,38,.4);border-radius:5px;overflow:hidden}
+.fill{position:absolute;left:0;top:0;bottom:0;background:var(--cofe);border-radius:4px 3px 3px 4px;min-width:3px;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:10px}
+.fill .pct{font-family:var(--mono);font-size:12px;font-weight:600;color:#062020;letter-spacing:.04em}
+.baseline-tag{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:rgba(217,89,38,.9)}
+
+/* ---- capacity headroom ---- */
+.cap{display:grid;grid-template-columns:1fr;gap:0}
+.cap .track{height:40px;background:var(--navy-3);border:1px solid var(--bd)}
+.cap .fill{background:var(--cofe);padding-right:14px}
+.cap .marks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--tx-3);margin-top:10px;text-transform:uppercase}
+
+/* ---- footprint to-scale ---- */
+.foot-scale{display:flex;align-items:flex-end;gap:56px;flex-wrap:wrap}
+.sqbox{position:relative}
+.sq{position:relative;border:2px solid var(--trad);background:var(--trad-soft)}
+.sq.small{border-color:var(--cofe);background:var(--cofe);display:flex;align-items:center;justify-content:center}
+.sq .lab{position:absolute;left:0;bottom:-30px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--tx-2);white-space:nowrap}
+.sq.small .lab{color:var(--cofe)}
+.foot-note{max-width:34ch}
+.foot-note .big{font-family:var(--serif);font-weight:600;font-size:40px;color:var(--accent);letter-spacing:-.02em;line-height:1.05}
+
+/* ---- payback model ---- */
+.pay{display:grid;grid-template-columns:1.55fr 1fr;gap:52px;align-items:start}
+.assume{border:1px solid var(--bd);border-radius:10px;padding:26px 26px 12px;background:var(--navy-2)}
+.assume h3{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.assume .row{display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid var(--bd-soft);font-size:15px}
+.assume .row:first-of-type{border-top:0}
+.assume .row .k{color:var(--tx-2)} .assume .row .v{font-family:var(--mono);color:var(--tx);font-size:14px}
+.assume .row .v b{color:var(--accent);font-weight:600}
+.slider{margin:20px 0 6px}
+.slider label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-2);margin-bottom:12px}
+.slider label b{color:var(--accent);font-size:15px}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;
+  background:linear-gradient(90deg,var(--cofe) var(--pct,25%),var(--navy-3) var(--pct,25%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--navy);cursor:pointer;box-shadow:0 0 0 1px var(--accent)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid var(--navy);cursor:pointer}
+.payout{display:flex;gap:36px;margin-top:22px;flex-wrap:wrap}
+.payout .po b{font-family:var(--serif);font-weight:600;font-size:38px;color:var(--accent);letter-spacing:-.02em;display:block;line-height:1}
+.payout .po span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);margin-top:9px;display:block}
+.chartwrap{position:relative}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis text{font-family:var(--mono);font-size:11px;fill:var(--tx-3);letter-spacing:.04em}
+.axis line{stroke:var(--grid)}
+.zero-line{stroke:var(--tx-3);stroke-width:1;stroke-dasharray:3 4}
+.pathline{fill:none;stroke:var(--cofe);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.beven circle{fill:var(--accent);stroke:var(--navy);stroke-width:3}
+.beven text{font-family:var(--mono);font-size:11.5px;fill:var(--accent);letter-spacing:.06em}
+.crosshair{stroke:var(--tx-3);stroke-width:1;stroke-dasharray:2 3;opacity:0}
+.hoverdot{fill:var(--accent);stroke:var(--navy);stroke-width:2.5;opacity:0}
+
+/* shared tooltip */
+.tip{position:fixed;pointer-events:none;z-index:50;background:#0c1226;border:1px solid var(--bd);
+  border-radius:8px;padding:10px 13px;font-family:var(--mono);font-size:12px;color:var(--tx);
+  letter-spacing:.03em;opacity:0;transition:opacity .12s;box-shadow:0 8px 30px rgba(0,0,0,.5);white-space:nowrap}
+.tip b{color:var(--accent);font-weight:600}
+.tip .t-lab{color:var(--tx-3);text-transform:uppercase;font-size:10.5px;letter-spacing:.1em}
+
+/* named-airport chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.chip{border:1px solid var(--bd);border-radius:20px;padding:8px 16px;font-family:var(--mono);font-size:12.5px;
+  letter-spacing:.06em;color:var(--tx-2)}
+.chip b{color:var(--accent);font-weight:600}
+
+/* disclosure/table */
+details{margin-top:26px;border-top:1px solid var(--bd-soft);padding-top:16px}
+summary{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);cursor:pointer}
+table{border-collapse:collapse;margin-top:16px;font-size:14px;width:100%}
+th,td{text-align:left;padding:8px 18px 8px 0;border-bottom:1px solid var(--bd-soft);color:var(--tx-2)}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3)}
+td.n{font-family:var(--mono);color:var(--tx)}
+
+/* callouts */
+.note{font-size:14px;color:var(--tx-3);max-width:80ch;line-height:1.6}
+.illus{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:#F2C94C;border:1px solid rgba(242,201,76,.4);border-radius:4px;padding:4px 10px;background:rgba(242,201,76,.08)}
+
+footer{padding:64px 0 90px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
+footer p{font-size:14px;color:var(--tx-3);line-height:1.7;max-width:64ch}
+
+@media (max-width:900px){
+  .wrap{padding:0 24px}
+  h1{font-size:44px} h2{font-size:30px}
+  .tiles,.tiles.three{grid-template-columns:repeat(2,1fr)}
+  .tile{border-right:0;border-bottom:1px solid var(--bd)}
+  .pay{grid-template-columns:1fr;gap:34px}
+  footer .cols{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="tip" id="tip"></div>
+
+<!-- ============================== MASTHEAD ============================== -->
+<header>
+  <div class="wrap">
+    <div class="mast"><span>COFE+ <span class="g">/</span> Shanghai Hi-Dolphin Robot Technology</span><span>Investor Infographics <span class="g">·</span> 2026</span></div>
+    <div class="kicker">The airport robot-café investment case</div>
+    <h1>Every aspect of running a robot café in an airport, in <em>one read</em>.</h1>
+    <p class="lead">The economics, the cost advantage, the capacity ceiling, the durability, and the proof — the numbers an operator needs before signing a lease in the most expensive retail real estate on earth.</p>
+    <div class="figs">
+      <div class="fig"><b>21+</b><span>Int'l airports</span></div>
+      <div class="fig"><b>5</b><span>Continents</span></div>
+      <div class="fig"><b>~54s</b><span>Per fresh cup</span></div>
+      <div class="fig"><b>24/7</b><span>Unmanned</span></div>
+      <div class="fig"><b>&lt;2.35m²</b><span>Footprint</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== 1 · WHY AIRPORTS ============================== -->
+<section id="fit">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">01 — The fit</div>
+      <h2>Three conditions that <em>strain a café</em> — and suit a robot.</h2>
+      <p class="lead">Airports run around the clock, charge premium rent per square metre, and can't reliably staff overnight shifts. A robot kiosk answers all three at once.</p>
+    </div>
+    <div class="tiles three">
+      <div class="tile"><b>24/7</b><span>Demand never stops — a kiosk runs unmanned with &lt;30 min of daily maintenance</span></div>
+      <div class="tile"><b>&lt;2.35<span class="u"> m²</span></b><span>Fits where rent is highest — vs 30–100 m² for a staffed shop</span></div>
+      <div class="tile"><b>0</b><span>Staff per shift — removes the overnight labour bottleneck entirely</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 2 · UNIT ECONOMICS / PAYBACK ============================== -->
+<section id="payback">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">02 — Unit economics</div>
+      <h2>The payback curve — <em>break-even in about four months</em>.</h2>
+      <p class="lead">At Chișinău International, an operator hit full return on investment within four months at 200+ cups a day. Drag the volume to model other terminals.</p>
+      <p style="margin-top:16px"><span class="illus">Illustrative model · assumptions shown · replace with your figures</span></p>
+    </div>
+    <div class="pay">
+      <figure class="chartwrap">
+        <div class="legend"><span><i class="swatch-cofe"></i>Cumulative net cash</span><span style="color:var(--tx-3)">— break-even where the curve crosses zero</span></div>
+        <svg id="paySvg" viewBox="0 0 720 380" role="img" aria-label="Cumulative net cash flow over 12 months, crossing break-even around month four">
+          <g class="axis" id="payAxis"></g>
+          <path class="pathline" id="payPath" d=""></path>
+          <g class="beven" id="payBeven"></g>
+          <line class="crosshair" id="payCross" y1="10" y2="330"></line>
+          <circle class="hoverdot" id="payDot" r="5"></circle>
+          <rect id="payHit" x="52" y="10" width="648" height="320" fill="transparent" style="cursor:crosshair"></rect>
+        </svg>
+        <figcaption>Cumulative net cash per machine · months from launch</figcaption>
+        <details>
+          <summary>View the numbers</summary>
+          <table id="payTable"><thead><tr><th>Month</th><th>Cumulative net cash (USD)</th></tr></thead><tbody></tbody></table>
+        </details>
+      </figure>
+      <div>
+        <div class="assume">
+          <h3>Assumptions</h3>
+          <div class="row"><span class="k">Net margin per cup</span><span class="v"><b>$2.10</b></span></div>
+          <div class="row"><span class="k">— sale price (illustrative)</span><span class="v">$3.50</span></div>
+          <div class="row"><span class="k">— cost per cup (Yahoo Finance)</span><span class="v">~$1.40</span></div>
+          <div class="row"><span class="k">All-in investment (illustrative)</span><span class="v">~$50k</span></div>
+          <div class="row"><span class="k">Operating days / month</span><span class="v">30</span></div>
+          <div class="slider">
+            <label>Cups per day <b id="cupsOut">200</b></label>
+            <input type="range" id="cups" min="100" max="600" step="10" value="200">
+          </div>
+        </div>
+        <div class="payout">
+          <div class="po"><b id="mo">~4.0</b><span>Months to payback</span></div>
+          <div class="po"><b id="contrib">$12.6k</b><span>Monthly contribution</span></div>
+        </div>
+        <p class="note" style="margin-top:20px">Model, not a quote. Cost per cup (~$1.40 at high quality) and the 4-month ROI at 200+ cups/day are from the case study; sale price and capex are placeholders — swap in your lease and pricing to get exact figures.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 3 · COST ADVANTAGE ============================== -->
+<section id="cost">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">03 — Cost advantage</div>
+      <h2>Cents on the dollar of a <em>staffed café</em>.</h2>
+      <p class="lead">Against a comparable staffed airport café set at 100, a COFE+ kiosk runs the same service on a fraction of the cost base.</p>
+    </div>
+    <div class="legend"><span><i class="swatch-cofe"></i>COFE+ kiosk</span><span><i class="swatch-trad"></i>Traditional café (baseline = 100)</span></div>
+    <div id="costBars"></div>
+    <p class="note" style="margin-top:8px">“Up to 90% lower” labour &amp; operating cost and “up to 80% lower” energy are from the case study; floor space shown against a 30 m² small-format shop (the kiosk is under 2.35 m²).</p>
+  </div>
+</section>
+
+<!-- ============================== 4 · FOOTPRINT ============================== -->
+<section id="footprint">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">04 — Real estate</div>
+      <h2>The smallest tenant on the <em>most expensive floor</em>.</h2>
+      <p class="lead">Drawn to scale: the kiosk footprint against the 30–100 m² that a traditional specialty shop needs.</p>
+    </div>
+    <div class="foot-scale">
+      <div class="sqbox" style="padding-bottom:40px">
+        <div class="sq" style="width:340px;height:340px" data-lab="Traditional shop (upper end)" data-val="100 m²">
+          <div class="sq small" style="width:52px;height:52px;position:absolute;left:8px;bottom:8px" data-lab="COFE+ kiosk" data-val="under 2.35 m²">
+            <div class="lab" style="left:62px;bottom:16px">≈2.35 m²</div>
+          </div>
+          <div class="lab" style="color:var(--trad)">100 m² · upper end of a traditional shop</div>
+        </div>
+      </div>
+      <div class="foot-note">
+        <div class="big">up to ~40× less floor space</div>
+        <p class="note" style="margin-top:16px">A traditional specialty shop needs 30–100 m². In airport retail — among the highest rent per square metre anywhere — that footprint is cost. The bar and counter formats need only ~2 m².</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 5 · CAPACITY ============================== -->
+<section id="capacity">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">05 — Capacity ceiling</div>
+      <h2>Typical volume is a <em>fraction of the ceiling</em>.</h2>
+      <p class="lead">A machine rated for up to 1,000 cups a day is running ~200 at a proven site — the headroom is upside as footfall grows.</p>
+    </div>
+    <figure class="cap">
+      <div class="legend"><span><i class="swatch-cofe"></i>Typical (Chișinău, ~200/day)</span><span style="color:var(--tx-3)">track = rated capacity 1,000/day</span></div>
+      <div class="track" id="capTrack" data-lab="Typical throughput" data-val="~200 cups/day of 1,000 rated">
+        <div class="fill" style="width:20%"><span class="pct" style="color:#062020">200</span></div>
+      </div>
+      <div class="marks"><span>0</span><span>250</span><span>500</span><span>750</span><span>1,000 rated</span></div>
+    </figure>
+    <div class="tiles" style="margin-top:46px">
+      <div class="tile"><b>~54<span class="u">s</span></b><span>Per fresh cup — beat human baristas' 72s (May 2026)</span></div>
+      <div class="tile"><b>5</b><span>Cups brewed simultaneously</span></div>
+      <div class="tile"><b>300</b><span>Cups per single ingredient refill</span></div>
+      <div class="tile"><b>&lt;30<span class="u"> min</span></b><span>Daily maintenance — otherwise unattended</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 6 · DURABILITY / RISK ============================== -->
+<section id="durability">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">06 — Durability &amp; risk</div>
+      <h2>A ten-year asset that <em>keeps selling</em>.</h2>
+      <p class="lead">Long service life and remote monitoring lower the two things investors price hardest: downtime and replacement risk.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><b>60,000+</b><span>Cumulative operating hours logged</span></div>
+      <div class="tile"><b>2,000+</b><span>Days on the longest single machine — 6+ years</span></div>
+      <div class="tile"><b>500k+</b><span>Cups — 6th-gen 10-year design life</span></div>
+      <div class="tile"><b>75%+</b><span>Avg daily sales vs human-run cafés</span></div>
+    </div>
+    <p class="note" style="margin-top:26px">The AIoT “Smart Store Brain” tracks sales and inventory in real time, runs automated cleaning cycles, and sends predictive-maintenance alerts to a phone — reliability is monitored, not assumed.</p>
+  </div>
+</section>
+
+<!-- ============================== 7 · TRACTION & MOAT ============================== -->
+<section id="traction">
+  <div class="wrap">
+    <div class="shead">
+      <div class="snum">07 — Traction &amp; moat</div>
+      <h2>Proven in real terminals — and <em>hard to copy</em>.</h2>
+      <p class="lead">Deployed across five continents, backed by patents and the food-safety certifications airport operators require before a tenant opens.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile"><b>70+</b><span>Countries in operation</span></div>
+      <div class="tile"><b>200M+</b><span>Cups served worldwide</span></div>
+      <div class="tile"><b>120+</b><span>International patents</span></div>
+      <div class="tile"><b>50+</b><span>Certifications · 18+ developed countries</span></div>
+    </div>
+    <p class="mono" style="margin-top:40px;color:var(--tx-2)">In service at these airports</p>
+    <div class="chips">
+      <span class="chip"><b>Denver</b> Int'l · USA · 60M+ pax</span>
+      <span class="chip"><b>Shanghai Hongqiao</b> · China · 40M+ pax</span>
+      <span class="chip"><b>Chișinău</b> Int'l · Moldova</span>
+      <span class="chip"><b>Kuala Lumpur</b> Int'l · Malaysia</span>
+      <span class="chip"><b>Penang</b> Int'l · Malaysia</span>
+      <span class="chip"><b>Brussels</b> · Belgium</span>
+      <span class="chip">Hangzhou Xiaoshan · Kunming Changshui</span>
+    </div>
+    <p class="note" style="margin-top:26px">World's first coffee robot certified simultaneously by the U.S. FDA, U.S. FCC, EU CE, UK UKCA, and the UN.</p>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer>
+  <div class="wrap">
+    <hr class="hr" style="margin-bottom:40px">
+    <div class="cols">
+      <div>
+        <div class="kicker" style="color:var(--tx-3)">About these figures</div>
+        <p style="margin-top:14px">Operating metrics, deployment counts, certifications, cost- and energy-reduction ranges, the ~$1.40 cost per cup, and the four-month ROI at Chișinău are drawn from the COFE+ airport case study. The payback section is an <b style="color:#F2C94C">illustrative model</b>: sale price ($3.50) and all-in investment (~$50k) are placeholders chosen to reconcile with the case-study ROI, not quoted prices — replace them with your lease, pricing, and capex for exact numbers.</p>
+      </div>
+      <div>
+        <div class="kicker" style="color:var(--tx-3)">COFE+ · Shanghai Hi-Dolphin</div>
+        <p style="margin-top:14px">Companion to the deck “Why Airports Are the Perfect Location for Robot Coffee Kiosks.” Charts validated for colour-blind legibility on the navy surface.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================ shared tooltip */
+const tip=document.getElementById('tip');
+function showTip(html,x,y){tip.innerHTML=html;tip.style.opacity=1;
+  const pad=14;let tx=x+pad,ty=y+pad;
+  const r=tip.getBoundingClientRect();
+  if(tx+r.width>innerWidth-8)tx=x-r.width-pad;
+  if(ty+r.height>innerHeight-8)ty=y-r.height-pad;
+  tip.style.left=tx+'px';tip.style.top=ty+'px';}
+function hideTip(){tip.style.opacity=0;}
+
+/* ============================================================ 02 · payback model */
+const CUP=document.getElementById('cups'), cupsOut=document.getElementById('cupsOut'),
+      moOut=document.getElementById('mo'), contribOut=document.getElementById('contrib');
+const MARGIN=2.10, INVEST=50400, DAYS=30, MONTHS=12;
+const svgNS='http://www.w3.org/2000/svg';
+const PL={x0:52,x1:700,y0:20,y1:330};   // plot box in viewBox units
+let payState={};
+
+function money(v){const a=Math.abs(v);
+  if(a>=1000)return (v<0?'-$':'$')+(a/1000).toFixed(a>=100000?0:1)+'k';
+  return (v<0?'-$':'$')+a.toFixed(0);}
+
+function buildPay(){
+  const cups=+CUP.value;
+  CUP.style.setProperty('--pct',((cups-100)/(600-100)*100)+'%');
+  cupsOut.textContent=cups;
+  const perMonth=cups*MARGIN*DAYS;
+  const payMonths=INVEST/perMonth;
+  moOut.textContent='~'+payMonths.toFixed(1);
+  contribOut.textContent=money(perMonth);
+
+  // series: cumulative at each month 0..12
+  const pts=[]; for(let m=0;m<=MONTHS;m++)pts.push({m, v:-INVEST+perMonth*m});
+  const vmax=Math.max(...pts.map(p=>p.v)), vmin=Math.min(...pts.map(p=>p.v));
+  const yPad=(vmax-vmin)*0.08;
+  const lo=vmin-yPad, hi=vmax+yPad;
+  const X=m=>PL.x0+(m/MONTHS)*(PL.x1-PL.x0);
+  const Y=v=>PL.y1-((v-lo)/(hi-lo))*(PL.y1-PL.y0);
+  payState={pts,X,Y,perMonth,payMonths,cups};
+
+  // axes
+  const ax=document.getElementById('payAxis'); ax.innerHTML='';
+  // y gridlines at zero + a few ticks
+  const yticks=niceTicks(lo,hi,4);
+  yticks.forEach(t=>{
+    const y=Y(t);
+    ax.appendChild(el('line',{x1:PL.x0,x2:PL.x1,y1:y,y2:y,stroke:'var(--grid)'}));
+    ax.appendChild(txt(PL.x0-10,y+4,money(t),{'text-anchor':'end'}));
+  });
+  // zero emphasis
+  ax.appendChild(el('line',{x1:PL.x0,x2:PL.x1,y1:Y(0),y2:Y(0),class:'zero-line'}));
+  // x labels every 2 months
+  for(let m=0;m<=MONTHS;m+=2){ax.appendChild(txt(X(m),PL.y1+22,'M'+m,{'text-anchor':'middle'}));}
+
+  // path
+  document.getElementById('payPath').setAttribute('d',
+    pts.map((p,i)=>(i?'L':'M')+X(p.m).toFixed(1)+' '+Y(p.v).toFixed(1)).join(' '));
+
+  // break-even marker
+  const be=document.getElementById('payBeven'); be.innerHTML='';
+  if(payMonths<=MONTHS){
+    const bx=X(payMonths),by=Y(0);
+    be.appendChild(el('circle',{cx:bx,cy:by,r:5}));
+    be.appendChild(txt(bx+10,by-10,'break-even ~M'+payMonths.toFixed(1),{}));
+  }
+  // table
+  const tb=document.querySelector('#payTable tbody'); tb.innerHTML='';
+  pts.forEach(p=>{const tr=document.createElement('tr');
+    tr.innerHTML='<td class="n">M'+p.m+'</td><td class="n">'+money(p.v)+'</td>';tb.appendChild(tr);});
+}
+function niceTicks(lo,hi,n){const span=hi-lo,step0=span/n,mag=Math.pow(10,Math.floor(Math.log10(step0)));
+  const norm=step0/mag,step=(norm>=5?5:norm>=2?2:1)*mag;
+  const out=[];for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step)out.push(Math.round(t));return out;}
+function el(t,a){const e=document.createElementNS(svgNS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function txt(x,y,s,a){const e=el('text',Object.assign({x,y,class:'axis'},a));e.textContent=s;
+  const p=document.getElementById('payAxis');return e;}
+
+CUP.addEventListener('input',buildPay);
+buildPay();
+
+/* payback hover crosshair */
+const hit=document.getElementById('payHit'),cross=document.getElementById('payCross'),
+      hdot=document.getElementById('payDot'),paySvg=document.getElementById('paySvg');
+hit.addEventListener('mousemove',e=>{
+  const {pts,X,Y}=payState;
+  const box=paySvg.getBoundingClientRect(), sx=(e.clientX-box.left)/box.width*720;
+  let m=Math.round((sx-PL.x0)/(PL.x1-PL.x0)*MONTHS); m=Math.max(0,Math.min(MONTHS,m));
+  const p=pts[m],px=X(m),py=Y(p.v);
+  cross.setAttribute('x1',px);cross.setAttribute('x2',px);cross.style.opacity=1;
+  hdot.setAttribute('cx',px);hdot.setAttribute('cy',py);hdot.style.opacity=1;
+  showTip('<span class="t-lab">Month '+m+'</span><br><b>'+money(p.v)+'</b> cumulative',e.clientX,e.clientY);
+});
+hit.addEventListener('mouseleave',()=>{cross.style.opacity=0;hdot.style.opacity=0;hideTip();});
+
+/* ============================================================ 03 · cost bars */
+const costData=[
+  {name:'Labour &amp; operating cost',cofe:10,note:'up to 90% lower'},
+  {name:'Energy use',cofe:20,note:'up to 80% lower'},
+  {name:'Floor space',cofe:8,note:'~2.35 m² vs 30 m²'},
+  {name:'Staff per shift',cofe:0,note:'0 vs 2–5'},
+];
+const cb=document.getElementById('costBars');
+costData.forEach(d=>{
+  const row=document.createElement('div');row.className='barrow';
+  row.innerHTML=
+    '<div class="top"><span class="name">'+d.name+'</span>'+
+    '<span class="val"><b>'+d.cofe+'</b> vs 100 · '+d.note+'</span></div>'+
+    '<div class="track" data-lab="'+d.name.replace(/&amp;/g,'&')+'" data-val="COFE+ '+d.cofe+' vs traditional 100 — '+d.note+'">'+
+      '<div class="fill" style="width:'+Math.max(d.cofe,1.4)+'%">'+(d.cofe>=6?'<span class="pct">'+d.cofe+'</span>':'')+'</div>'+
+      '<span class="baseline-tag">100</span>'+
+    '</div>';
+  cb.appendChild(row);
+});
+
+/* generic per-mark hover for any [data-lab] mark (bars + footprint squares) */
+document.querySelectorAll('.track[data-lab], .sq[data-lab]').forEach(t=>{
+  if(t.classList.contains('sq'))t.style.cursor='help';
+  t.addEventListener('mousemove',e=>showTip('<span class="t-lab">'+t.dataset.lab+'</span><br><b>'+t.dataset.val+'</b>',e.clientX,e.clientY));
+  t.addEventListener('mouseleave',hideTip);
+});
+</script>
+</body>
+</html>
